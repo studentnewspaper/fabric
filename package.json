@@ -1,0 +1,8 @@
+{
+  "name": "student-fabric",
+  "private": true,
+  "workspaces": [
+    "components",
+    "design"
+  ]
+}
