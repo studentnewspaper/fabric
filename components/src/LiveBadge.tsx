@@ -17,7 +17,8 @@ const badgeStyles = css`
   font-family: ${fonts.sans};
   font-weight: bold;
 
-  display: inline-flex;
+  display: flex;
+  width: min-content;
   flex-direction: row;
   align-items: center;
 `;
@@ -54,17 +55,16 @@ const indicatorStyles = css`
   }
 `;
 
+const textStyles = css`
+  line-height: 1;
+`;
+
 const LiveBadge: FunctionComponent<LiveBadgeProps> = ({
   type = LiveBadgeType.Solid,
   ...props
 }) => {
   return (
-    <div
-      css={css`
-        line-height: 1;
-      `}
-      {...props}
-    >
+    <div {...props}>
       <div
         css={[
           badgeStyles,
@@ -83,7 +83,7 @@ const LiveBadge: FunctionComponent<LiveBadgeProps> = ({
             `,
           ]}
         ></div>
-        <div>LIVE</div>
+        <div css={textStyles}>LIVE</div>
       </div>
     </div>
   );
