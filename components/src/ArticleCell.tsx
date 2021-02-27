@@ -4,7 +4,7 @@ import { generateStyles, headlineFont, subtitleFont } from "design/typography";
 import { FunctionComponent } from "preact";
 import AspectRatioBox from "./AspectRatioBox";
 import LinkArea from "./LinkArea";
-import LiveBadge from "./LiveBadge";
+import LiveBadge, { LiveBadgeType } from "./LiveBadge";
 
 export enum ArticleCellType {
   Default = "default",
@@ -58,6 +58,15 @@ const shouldShowSubtitle = (type: ArticleCellType): boolean => {
   }
 };
 
+const liveBadgeType = (type: ArticleCellType): LiveBadgeType => {
+  switch (type) {
+    case ArticleCellType.Default:
+      return LiveBadgeType.Solid;
+    case ArticleCellType.Compact:
+      return LiveBadgeType.Transparent;
+  }
+};
+
 const ArticleCell: FunctionComponent<ArticleCellProps> = ({
   title,
   subtitle,
@@ -87,6 +96,7 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
 
       {isLive && (
         <LiveBadge
+          type={liveBadgeType(type)}
           css={css`
             margin-bottom: ${space[3]}px;
           `}
