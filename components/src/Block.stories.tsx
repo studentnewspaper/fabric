@@ -3,12 +3,22 @@ import Block, { BlockProps } from "./Block";
 import ArticleCell, { ArticleCellType } from "./ArticleCell";
 import UpdatesCell, { UpdatesCellType } from "./UpdatesCell";
 import { constrain } from "../story-utils";
+import ArticleCellStories, { Compact, WithImage } from "./ArticleCell.stories";
 
 export default {
   title: "Blocks/Basic",
   component: Block,
   args: {
     columns: 5,
+    rows: 1,
+    title: null,
+  },
+  argTypes: {
+    title: {
+      control: {
+        type: "text",
+      },
+    },
   },
   decorators: [constrain("800px", true)],
   // } as Meta;
@@ -17,14 +27,29 @@ export default {
 // export const Basic: Story<BlockProps> = (args) => <Block {...args} />;
 const Template: any = (args: any) => <Block {...args} />;
 
-const Wrap: FunctionComponent<{ columns: number }> = ({
+const Wrap: FunctionComponent<{ columns: number; rows?: number }> = ({
   columns,
+  rows = 1,
   children,
 }) => {
-  return <div style={{ gridColumn: `auto / span ${columns}` }}>{children}</div>;
+  return (
+    <div
+      style={{
+        gridColumn: `auto / span ${columns}`,
+        gridRow: `auto / span ${rows}`,
+      }}
+    >
+      {children}
+    </div>
+  );
 };
 
 export const Blank = Template.bind({});
+
+export const WithTitle = Template.bind({});
+WithTitle.args = {
+  title: "Block title",
+};
 
 export const Live = Template.bind({});
 Live.args = {
@@ -115,6 +140,38 @@ ComplexLive.args = {
               link: "#",
             },
           ]}
+        />
+      </Wrap>
+    </>
+  ),
+};
+
+export const Section = Template.bind({});
+Section.args = {
+  title: "Features",
+  rows: 2,
+  children: (
+    <>
+      <Wrap columns={3} rows={2}>
+        {/* TODO: Write these out fully so ArticleStories.stories.tsx can change without changing this */}
+        <WithImage
+          {...ArticleCellStories.args}
+          {...WithImage.args}
+          isLive={false}
+        />
+      </Wrap>
+      <Wrap columns={2} rows={1}>
+        <Compact
+          {...ArticleCellStories.args}
+          {...Compact.args}
+          isLive={false}
+        />
+      </Wrap>
+      <Wrap columns={2} rows={1}>
+        <Compact
+          {...ArticleCellStories.args}
+          {...Compact.args}
+          isLive={false}
         />
       </Wrap>
     </>

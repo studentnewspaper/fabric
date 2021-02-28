@@ -12,6 +12,12 @@ export const fonts = {
 
 export const lineHeights = { dense: 1.15, base: 1.35, relaxed: 1.5 };
 
+export const letterSpacings = {
+  dense: "-0.03rem",
+  base: "0",
+  relaxed: "0.03rem",
+};
+
 export const fontWeights = { base: 400, bold: 700 };
 
 // Generated with https://tailwind.ink/
