@@ -70,3 +70,7 @@ export const mediaQueries = {
   medium: `@media screen and (min-width: ${breakpoints[1]})`,
   large: `@media screen and (min-width: ${breakpoints[2]})`,
 };
+
+export const zIndices = {
+  linkArea: 10,
+};

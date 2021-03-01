@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { zIndices } from "design/theme";
 import { FunctionComponent } from "preact";
 
 export interface LinkAreaProps {
@@ -13,6 +14,7 @@ const linkStyles = css`
   bottom: 0;
   right: 0;
   opacity: 0;
+  z-index: ${zIndices.linkArea};
 
   :hover {
     ~ [data-link-hover="underline"] {
