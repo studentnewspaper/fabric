@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { text } from "design/palette";
 import { fonts, fontSizes, fontWeights, space } from "design/theme";
 import { FunctionComponent } from "preact";
+import { tinyRelative } from "../utils/date";
 
 export enum UpdatesCellType {
   Stacked = "stacked",
@@ -9,7 +10,7 @@ export enum UpdatesCellType {
 }
 
 export interface UpdatesCellProps {
-  updates: { id: string; time: string; text: string; link?: string }[];
+  updates: { id: string; timestamp: Date; text: string; link?: string }[];
   type?: UpdatesCellType;
 }
 
@@ -76,7 +77,7 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
             ]}
             key={update.id + "-t"}
           >
-            {update.time}
+            {tinyRelative(update.timestamp)}
           </div>,
           <div key={update.id + "-l"}>{text}</div>,
         ];

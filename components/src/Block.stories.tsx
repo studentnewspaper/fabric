@@ -4,6 +4,7 @@ import ArticleCell, { ArticleCellType } from "./ArticleCell";
 import UpdatesCell, { UpdatesCellType } from "./UpdatesCell";
 import { constrain } from "../story-utils";
 import ArticleCellStories, { Compact, WithImage } from "./ArticleCell.stories";
+import { liveUpdates } from "../utils/data";
 
 export default {
   title: "Blocks/Basic",
@@ -64,35 +65,7 @@ Live.args = {
         />
       </Wrap>
       <Wrap columns={2}>
-        <UpdatesCell
-          type={UpdatesCellType.Inline}
-          updates={[
-            {
-              id: "4",
-              time: "20.03",
-              text: "Lockdown lifted after cases drop",
-              link: "#",
-            },
-            {
-              id: "3",
-              time: "14.45",
-              text: "Latest daily statistics",
-              link: "#",
-            },
-            {
-              id: "2",
-              time: "13.21",
-              text: `"Students not to blame" says MSP`,
-              link: "#",
-            },
-            {
-              id: "1",
-              time: "3d",
-              text: "University makes statement",
-              link: "#",
-            },
-          ]}
-        />
+        <UpdatesCell type={UpdatesCellType.Inline} updates={liveUpdates} />
       </Wrap>
     </>
   ),
@@ -118,29 +91,7 @@ ComplexLive.args = {
         />
       </Wrap>
       <Wrap columns={1}>
-        <UpdatesCell
-          type={UpdatesCellType.Stacked}
-          updates={[
-            {
-              id: "4",
-              time: "20.03",
-              text: "Voting opens with technical hitch",
-              link: "#",
-            },
-            {
-              id: "3",
-              time: "14.45",
-              text: "One day to go",
-              link: "#",
-            },
-            {
-              id: "2",
-              time: "13.21",
-              text: "Candidate list revealed",
-              link: "#",
-            },
-          ]}
-        />
+        <UpdatesCell type={UpdatesCellType.Stacked} updates={liveUpdates} />
       </Wrap>
     </>
   ),
