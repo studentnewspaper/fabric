@@ -27,6 +27,7 @@ const iconContainerStyles = css`
   /* TODO: Work this out using pythagoras or something */
   margin-left: 5px;
   margin-right: ${space[6]}px;
+  user-select: none;
 `;
 
 const rotatedBoxStyles = css`
