@@ -8,3 +8,12 @@ There are a number of projects that live in this repo. They are:
   - Properties, which are the individual pieces of information (like what the exact value of a colour is)
   - Styles, which are collections of properties. For instance, the headline style will have properties about the font size, line height, and colour.
 - `/components` hosts all the little bits of UI that can be tied together to make pages in our sites. As they're kept in a separate package, they can be reused across platforms.
+
+# Contributors
+
+This project wouldn't have been possible without the faith and support of _The Student_'s 20/21 committee. Specific contributors to the project include:
+
+- **Nick Bush** (development, design)
+- **Isabella Ronca** (design)
+
+Would you like to get involved with design or development? Email [digital@studentnewspaper.org](mailto:digital@studentnewspaper.org).
