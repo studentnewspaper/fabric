@@ -2,6 +2,7 @@ import { colours } from "./theme";
 
 export const text = {
   primary: colours.neutral[800],
+  theme: colours.red[700],
   secondary: colours.neutral[600],
   live: colours.red[700],
   liveInverse: colours.red[50],
