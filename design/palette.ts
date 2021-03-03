@@ -11,4 +11,5 @@ export const text = {
 export const bg = {
   live: colours.red[700],
   warning: colours.red[700],
+  theme: colours.red[700],
 };
