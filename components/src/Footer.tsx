@@ -112,17 +112,22 @@ const Footer: FunctionComponent<FooterProps> = ({}) => {
       </FooterSection>
       <FooterSection title="Contact us">
         <a href="/get-involved">Get involved</a>
-        <a href="https://complaints.studentnewspaper.org">Complaints</a>
+        <a href="https://complaints.studentnewspaper.org" target="__blank">
+          Complaints
+        </a>
         <a href="#">Advertising</a>
       </FooterSection>
       <div css={socialsContainerStyles}>
-        <a href="https://www.instagram.com/studentnewspaper">
+        <a href="https://www.instagram.com/studentnewspaper" target="__blank">
           <RiInstagramLine />
         </a>
-        <a href="https://www.facebook.com/TheStudentNewspaper">
+        <a href="https://www.facebook.com/TheStudentNewspaper" target="__blank">
           <RiFacebookBoxLine />
         </a>
-        <a href="https://www.linkedin.com/company/the-student-newspaper-">
+        <a
+          href="https://www.linkedin.com/company/the-student-newspaper-"
+          target="__blank"
+        >
           <RiLinkedinLine />
         </a>
       </div>
