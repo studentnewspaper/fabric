@@ -1,12 +1,12 @@
 import { constrain } from "../story-utils";
-import { liveUpdates } from "../utils/data";
+import { liveUpdatesForCell } from "../utils/data";
 import UpdatesCell, { UpdatesCellProps, UpdatesCellType } from "./UpdatesCell";
 
 export default {
   title: "Cells/Updates",
   component: UpdatesCell,
   args: {
-    updates: liveUpdates,
+    updates: liveUpdatesForCell,
     type: UpdatesCellType.Stacked,
   } as UpdatesCellProps,
   argTypes: {

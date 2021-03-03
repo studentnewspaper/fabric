@@ -4,7 +4,7 @@ import ArticleCell, { ArticleCellType } from "./ArticleCell";
 import UpdatesCell, { UpdatesCellType } from "./UpdatesCell";
 import { constrain } from "../story-utils";
 import ArticleCellStories, { Compact, WithImage } from "./ArticleCell.stories";
-import { liveUpdates } from "../utils/data";
+import { liveUpdatesForCell } from "../utils/data";
 
 export default {
   title: "Blocks/Basic",
@@ -65,7 +65,10 @@ Live.args = {
         />
       </Wrap>
       <Wrap columns={2}>
-        <UpdatesCell type={UpdatesCellType.Inline} updates={liveUpdates} />
+        <UpdatesCell
+          type={UpdatesCellType.Inline}
+          updates={liveUpdatesForCell}
+        />
       </Wrap>
     </>
   ),
@@ -91,7 +94,10 @@ ComplexLive.args = {
         />
       </Wrap>
       <Wrap columns={1}>
-        <UpdatesCell type={UpdatesCellType.Stacked} updates={liveUpdates} />
+        <UpdatesCell
+          type={UpdatesCellType.Stacked}
+          updates={liveUpdatesForCell}
+        />
       </Wrap>
     </>
   ),
