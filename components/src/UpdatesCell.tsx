@@ -17,7 +17,7 @@ export interface UpdatesCellProps {
 const timeStyles = css`
   font-family: ${fonts.sans};
   font-weight: ${fontWeights.bold};
-  font-size: ${fontSizes.small}em;
+  font-size: ${fontSizes.small}rem;
   color: ${text.live};
   text-align: right;
 `;

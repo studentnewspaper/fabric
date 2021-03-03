@@ -13,7 +13,7 @@ export interface LiveBadgeProps extends PropsOf<"div"> {
 }
 
 const badgeStyles = css`
-  font-size: ${fontSizes.small}em;
+  font-size: ${fontSizes.small}rem;
   font-family: ${fonts.sans};
   font-weight: bold;
 
