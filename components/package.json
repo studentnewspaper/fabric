@@ -7,7 +7,8 @@
     "design": "1.0.0",
     "minireset.css": "^0.0.7",
     "modern-normalize": "^1.0.0",
-    "preact": "^10.5.12"
+    "preact": "^10.5.12",
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
