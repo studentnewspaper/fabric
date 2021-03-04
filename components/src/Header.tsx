@@ -1,17 +1,18 @@
 import { css } from "@emotion/react";
 import { text } from "design/palette";
-import { fonts, letterSpacings, space } from "design/theme";
+import { colours, fonts, letterSpacings, space } from "design/theme";
 import { FunctionComponent } from "preact";
 import Logo from "./Logo";
+import Container from "./Container";
 
 export interface HeaderProps {}
 
 const navStyles = css`
   display: flex;
   flex-direction: row;
-  gap: ${space[6]}px;
-  padding: ${space[5]}px 0;
-  border-bottom: 1px solid black;
+  flex-wrap: wrap;
+  margin-top: ${space[5]}px;
+  margin-bottom: ${space[5] - space[2]}px;
 
   a {
     color: ${text.primary};
@@ -19,6 +20,11 @@ const navStyles = css`
     font-weight: bold;
     letter-spacing: ${letterSpacings.dense};
     text-decoration: none;
+    margin-bottom: ${space[2]}px;
+
+    :not(:last-of-type) {
+      margin-right: ${space[5]}px;
+    }
 
     :hover {
       /* text-decoration: underline; */
@@ -32,36 +38,46 @@ const mastheadStyles = css`
   flex-direction: row;
   justify-content: space-between;
   padding: ${space[6]}px 0;
-  border-bottom: 1px solid black;
 `;
 
 const logoStyles = css`
-  height: 100px;
+  width: 100%;
+  max-height: 100px;
 `;
 
-const dividerStyles = css`
-  margin-top: ${space[2]}px;
-  border-bottom: 1px solid black;
-`;
+const dividerStyles = (withSpacer: boolean) => {
+  const styles = css`
+    border-bottom: 1px solid black;
+  `;
+  if (!withSpacer) return styles;
+
+  return css`
+    ${styles}
+    margin-top: ${space[2]}px;
+  `;
+};
 
 const Header: FunctionComponent<HeaderProps> = ({}) => {
   return (
     <header>
-      <nav css={navStyles}>
-        <a href="#">Latest</a>
-        <a href="#">Student Elections</a>
-        <a href="#">LGBTQ+</a>
-        {/* <a href="#">Sections</a> */}
-        <a href="#">About</a>
-      </nav>
-      <div css={mastheadStyles}>
-        <div></div>
-        <div css={logoStyles}>
-          <Logo />
+      <Container css={dividerStyles(false)}>
+        <nav css={navStyles}>
+          <a href="/">Latest</a>
+          <a href="#">Student Elections</a>
+          <a href="#">LGBTQ+</a>
+          <a href="/about">About</a>
+        </nav>
+      </Container>
+      <Container css={dividerStyles(false)}>
+        <div css={mastheadStyles}>
+          <div></div>
+          <div>
+            <Logo css={logoStyles} />
+          </div>
         </div>
-      </div>
-      <div css={dividerStyles} />
-      <div css={dividerStyles} />
+      </Container>
+      <div css={dividerStyles(true)} />
+      <div css={dividerStyles(true)} />
     </header>
   );
 };
