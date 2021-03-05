@@ -17,7 +17,7 @@ const Container: FunctionComponent<ContainerProps> = ({
     <div
       css={css`
         width: 100%;
-        padding: 0 ${space[6]}px;
+        padding: 0 ${space[8]}px;
       `}
       {...props}
     >

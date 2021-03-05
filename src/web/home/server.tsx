@@ -3,13 +3,15 @@ import HomePage from "./index";
 import ssr from "preact-render-to-string";
 import { text } from "../design/palette";
 import { fonts, lineHeights } from "../design/theme";
+/// @ts-expect-error css import
+import resetUrl from "minireset.css/minireset.css";
 
 export function serverRender(props: HomePageProps): string {
   return ssr(
     <html>
       <head>
         <title>The Student</title>
-        <link rel="stylesheet" href="/resources/reset.css" />
+        <link rel="stylesheet" href={resetUrl} />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=swap"
@@ -28,7 +30,7 @@ export function serverRender(props: HomePageProps): string {
           type="application/json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(props) }}
         />
-        <script src="/resources/home.js" async></script>
+        <script src="/static/home.js" async></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,

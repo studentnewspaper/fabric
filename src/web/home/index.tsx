@@ -17,6 +17,7 @@ export interface HomePageProps {
     updatedAt: string;
   };
   featuredArticles: ArticleStub[] | null;
+  sections: { title: string; articles: ArticleStub[] }[];
 }
 
 const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
@@ -39,6 +40,7 @@ const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
 const HomePage: FunctionComponent<HomePageProps> = ({
   initialLiveElectionCell,
   featuredArticles,
+  sections,
 }) => {
   const [electionCellUpdates, setElectionCellUpdates] = useState(
     initialLiveElectionCell.updates
@@ -114,7 +116,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             />
           </Wrapper>
         </Block>
-        <Block columns={4} title="Featured">
+        <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (
             <p>Couldn't load featured articles</p>
           )}
@@ -137,8 +139,40 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             </>
           )}
         </Block>
+        {sections.map(({ title, articles }) => {
+          return (
+            <Block key={title} title={title} columns={4} rows={2}>
+              {articles.map((article, i) => {
+                return (
+                  <Wrapper
+                    columns={i == 0 ? 2 : 1}
+                    rows={i == 0 ? 2 : 1}
+                    key={article.link}
+                  >
+                    <ArticleCell
+                      title={article.title}
+                      imageUrl={i == 0 || i > 2 ? article.imageUrl : undefined}
+                      imageAlt={article.imageAlt}
+                      text={i < 3 ? article.text : undefined}
+                      link={article.link}
+                      type={
+                        i == 0
+                          ? ArticleCellType.Default
+                          : ArticleCellType.Compact
+                      }
+                    />
+                  </Wrapper>
+                );
+              })}
+            </Block>
+          );
+        })}
       </Container>
-      <Footer />
+      <Footer
+        css={css`
+          margin-top: ${space[9]}px;
+        `}
+      />
     </>
   );
 };

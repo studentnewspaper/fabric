@@ -28,8 +28,8 @@ const gridStyles = (columns: number, rows: number) => css`
   grid-template-columns: repeat(${columns}, minmax(0, 1fr));
   /* TODO: Are these minmax's really necessary */
   grid-template-rows: repeat(${rows - 1}, minmax(0, auto)) minmax(0, 1fr);
-  column-gap: ${space[4]}px;
-  row-gap: ${space[4]}px;
+  column-gap: ${space[5]}px;
+  row-gap: ${space[6]}px;
 `;
 
 const titleStyles = css`

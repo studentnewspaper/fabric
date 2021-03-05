@@ -10,7 +10,7 @@ import {
 } from "react-icons/ri";
 import Container from "./Container";
 
-export interface FooterProps {}
+export interface FooterProps extends PropsOf<"div"> {}
 
 const footerTitleStyles = css`
   font-weight: ${fontWeights.bold};
@@ -92,11 +92,11 @@ const creditsStyles = css`
   }
 `;
 
-const Footer: FunctionComponent<FooterProps> = ({}) => {
+const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
   const sectionUrl = (section: string) => `/section/${section}`;
 
   return (
-    <Container grid={3} css={containerStyles} gridCss={gridStyles}>
+    <Container grid={3} css={containerStyles} gridCss={gridStyles} {...props}>
       <FooterSection title="Sections">
         <a href={sectionUrl("news")}>News</a>
         <a href={sectionUrl("opinion")}>Opinion</a>

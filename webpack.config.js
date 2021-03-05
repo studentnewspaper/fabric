@@ -5,11 +5,17 @@ module.exports = (env, argv) => {
     {
       target: "node",
       entry: "./src/server/index.tsx",
-      externals: [{ fastify: "commonjs2 fastify" }],
+      externals: [
+        {
+          fastify: "commonjs2 fastify",
+          "fastify-static": "commonjs2 fastify-static",
+        },
+      ],
       devtool: false,
       output: {
         path: path.resolve(__dirname, "build"),
         filename: "server.js",
+        assetModuleFilename: "static/[hash][ext][query]",
       },
     },
     {
@@ -18,7 +24,8 @@ module.exports = (env, argv) => {
         home: "./src/web/home/client.tsx",
       },
       output: {
-        path: path.resolve(__dirname, "build/client"),
+        path: path.resolve(__dirname, "build/static"),
+        assetModuleFilename: "static/[hash][ext][query]",
       },
     },
   ];
@@ -43,6 +50,10 @@ module.exports = (env, argv) => {
               loader: "babel-loader",
               options: { cacheDirectory: true },
             },
+          },
+          {
+            test: /\.(css)$/i,
+            type: "asset/resource",
           },
         ],
       },

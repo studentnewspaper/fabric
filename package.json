@@ -6,6 +6,7 @@
     "cross-fetch": "^3.0.6",
     "date-fns": "^2.17.0",
     "fastify": "^3.13.0",
+    "fastify-static": "^4.0.1",
     "minireset.css": "^0.0.7",
     "modern-normalize": "^1.0.0",
     "preact": "^10.5.12",
@@ -37,6 +38,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "build": "webpack",
     "start": "concurrently \"webpack --watch\" \"nodemon --watch build/server.js build/server.js\""
   },
   "browserslist": "> 1% and not dead"
