@@ -38,7 +38,11 @@ module.exports = (env, argv) => {
         rules: [
           {
             test: /\.tsx?$/,
-            loader: "babel-loader",
+            exclude: /(node_modules)/,
+            use: {
+              loader: "babel-loader",
+              options: { cacheDirectory: true },
+            },
           },
         ],
       },

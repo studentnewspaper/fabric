@@ -1,14 +1,16 @@
-import { css, PropsOf } from "@emotion/react";
+import { css, Interpolation, PropsOf, Theme } from "@emotion/react";
 import { space } from "../design/theme";
 import { FunctionComponent } from "preact";
 
 export interface ContainerProps extends PropsOf<"div"> {
   grid?: number;
+  gridCss?: Interpolation<Theme>;
 }
 
 const Container: FunctionComponent<ContainerProps> = ({
   grid,
   children,
+  gridCss,
   ...props
 }) => {
   return (
@@ -27,8 +29,10 @@ const Container: FunctionComponent<ContainerProps> = ({
           `,
           grid != null &&
             css`
-              grid-template-columns: minmax(${grid}, 1fr);
+              display: grid;
+              grid-template-columns: repeat(${grid}, minmax(0, 1fr));
             `,
+          gridCss,
         ]}
       >
         {children}

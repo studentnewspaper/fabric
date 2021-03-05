@@ -12,6 +12,7 @@ export enum UpdatesCellType {
 export interface UpdatesCellProps {
   updates: { id: string; timestamp: Date; text: string; link?: string }[];
   type?: UpdatesCellType;
+  updatedAt?: Date;
 }
 
 const timeStyles = css`
@@ -57,6 +58,7 @@ const containerStyles = (type: UpdatesCellType) => {
 const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
   updates,
   type = UpdatesCellType.Stacked,
+  updatedAt,
 }) => {
   return (
     <div css={containerStyles(type)}>

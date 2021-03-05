@@ -9,6 +9,7 @@ export function serverRender(props: HomePageProps): string {
     <html>
       <head>
         <title>The Student</title>
+        <link rel="stylesheet" href="/resources/reset.css" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=swap"
@@ -16,7 +17,7 @@ export function serverRender(props: HomePageProps): string {
         />
         <style
           dangerouslySetInnerHTML={{
-            __html: `*{box-sizing:border-box}body{color:${text.primary};font-family:${fonts.serif};line-height:${lineHeights.base}}html,body,#root{padding:0;margin:0;width:100%;height:100%;overflow:hidden;}`,
+            __html: `*{box-sizing:border-box}body{color:${text.primary};font-family:${fonts.serif};line-height:${lineHeights.base}}html,body,#root{padding:0;margin:0;position:absolute;top:0;bottom:0;left:0;right:0;}`,
           }}
         ></style>
       </head>
@@ -27,6 +28,12 @@ export function serverRender(props: HomePageProps): string {
             __html: `window.HYDRATE={props:${JSON.stringify(props)}};`,
           }}
         />
+        <script src="/resources/home.js" async></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,
+          }}
+        ></script>
       </body>
     </html>
   );

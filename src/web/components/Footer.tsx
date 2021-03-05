@@ -1,24 +1,26 @@
 import { css, PropsOf } from "@emotion/react";
 import { bg, text } from "../design/palette";
-import { fonts, fontSizes, fontWeights, space } from "../design/theme";
+import { colours, fonts, fontSizes, fontWeights, space } from "../design/theme";
 import { FunctionComponent } from "preact";
 import {
   RiInstagramLine,
   RiFacebookBoxLine,
   RiLinkedinLine,
+  RiTwitterLine,
 } from "react-icons/ri";
+import Container from "./Container";
 
 export interface FooterProps {}
 
 const footerTitleStyles = css`
   font-weight: ${fontWeights.bold};
-  font-size: ${fontSizes.large};
+  font-size: ${fontSizes.large}em;
 `;
 
 const footerSectionStyles = css`
   a {
     color: ${text.primary};
-    display: black;
+    display: block;
     text-decoration: none;
     display: block;
     margin-top: ${space[2]}px;
@@ -54,12 +56,13 @@ const FooterSection: FunctionComponent<{ title: string } & PropsOf<"div">> = ({
 const containerStyles = css`
   font-family: ${fonts.sans};
   border-top: 1px solid black;
-  padding: ${space[8]}px;
+  background-color: ${colours.neutral[50]};
+`;
 
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+const gridStyles = css`
   row-gap: ${space[6]}px;
   column-gap: ${space[9]}px;
+  padding: ${space[8]}px 0;
 `;
 
 const socialsContainerStyles = css`
@@ -93,7 +96,7 @@ const Footer: FunctionComponent<FooterProps> = ({}) => {
   const sectionUrl = (section: string) => `/section/${section}`;
 
   return (
-    <div css={containerStyles}>
+    <Container grid={3} css={containerStyles} gridCss={gridStyles}>
       <FooterSection title="Sections">
         <a href={sectionUrl("news")}>News</a>
         <a href={sectionUrl("opinion")}>Opinion</a>
@@ -130,12 +133,15 @@ const Footer: FunctionComponent<FooterProps> = ({}) => {
         >
           <RiLinkedinLine />
         </a>
+        <a href="https://twitter.com/TheStudentPaper" target="__blank">
+          <RiTwitterLine />
+        </a>
       </div>
       <div css={creditsStyles}>
         <p>© The Student {new Date().getFullYear()}</p>
         <p>Designed and developed by Nicholas Bush and Isabella Ronca</p>
       </div>
-    </div>
+    </Container>
   );
 };
 

@@ -21,6 +21,7 @@ const badgeStyles = css`
   width: min-content;
   flex-direction: row;
   align-items: center;
+  user-select: none;
 `;
 
 const solidBadgeStyles = css`

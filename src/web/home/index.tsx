@@ -1,13 +1,21 @@
 import { css } from "@emotion/react";
-import { FunctionComponent, hydrate } from "preact";
+import { FunctionComponent } from "preact";
+import { useEffect, useState } from "preact/hooks";
+import { CellLiveUpdate, getCellLiveUpdates } from "../../gateway/live";
 import ArticleCell, { ArticleCellType } from "../components/ArticleCell";
 import Block from "../components/Block";
 import Container from "../components/Container";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UpdatesCell from "../components/UpdatesCell";
 import { space } from "../design/theme";
 
-export interface HomePageProps {}
+export interface HomePageProps {
+  initialLiveElectionCell: {
+    updates: CellLiveUpdate[] | null;
+    updatedAt: string;
+  };
+}
 
 const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
   columns: cols,
@@ -26,7 +34,25 @@ const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
   );
 };
 
-const HomePage: FunctionComponent<HomePageProps> = ({}) => {
+const HomePage: FunctionComponent<HomePageProps> = ({
+  initialLiveElectionCell,
+}) => {
+  const [electionCellUpdates, setElectionCellUpdates] = useState(
+    initialLiveElectionCell.updates
+  );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getCellLiveUpdates(`student-elections-2021`).then((updates) => {
+        // TODO: Query for delta updates
+        if (updates != null) {
+          console.log("Updated election live");
+          setElectionCellUpdates(updates);
+        }
+      });
+    }, 30 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Header />
@@ -57,20 +83,17 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
             />
           </Wrapper>
           <Wrapper columns={2} rows={2}>
-            <UpdatesCell
-              updates={[
-                {
-                  timestamp: new Date(),
-                  id: "0001",
-                  text: "Need all the updates to go here haha",
-                },
-                {
-                  timestamp: new Date(),
-                  id: "0002",
-                  text: "And another one",
-                },
-              ]}
-            />
+            {electionCellUpdates != null && (
+              <UpdatesCell
+                updates={electionCellUpdates.map((update) => ({
+                  id: update.id,
+                  text: update.text,
+                  timestamp: new Date(update.createdAt),
+                  link: `/live/student-elections-2021#${update.id}`,
+                }))}
+              />
+            )}
+            {electionCellUpdates == null && <p>Problem loading updates</p>}
           </Wrapper>
           <Wrapper columns={1}>
             <ArticleCell
@@ -87,6 +110,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({}) => {
           </Wrapper>
         </Block>
       </Container>
+      <Footer />
     </>
   );
 };
