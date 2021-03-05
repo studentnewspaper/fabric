@@ -1,6 +1,7 @@
 import { FunctionComponent } from "preact";
-import { css } from "@emotion/react";
+import { css, PropsOf } from "@emotion/react";
 import {
+  colours,
   fonts,
   fontSizes,
   fontWeights,
@@ -8,7 +9,7 @@ import {
   space,
 } from "../design/theme";
 
-export interface BlockProps {
+export interface BlockProps extends PropsOf<"div"> {
   columns: number;
   rows?: number;
   title?: string;
@@ -16,8 +17,8 @@ export interface BlockProps {
 
 const containerStyles = css`
   width: 100%;
-  border-top: 2px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  /* border-bottom: 1px solid black; */
 `;
 
 const gridStyles = (columns: number, rows: number) => css`
@@ -27,7 +28,7 @@ const gridStyles = (columns: number, rows: number) => css`
   /* TODO: Are these minmax's really necessary */
   grid-template-rows: repeat(${rows - 1}, minmax(0, auto)) minmax(0, 1fr);
   column-gap: ${space[4]}px;
-  row-gap: ${space[6]}px;
+  row-gap: ${space[4]}px;
 `;
 
 const titleStyles = css`
@@ -37,7 +38,7 @@ const titleStyles = css`
   font-weight: ${fontWeights.bold};
   letter-spacing: ${letterSpacings.dense};
   padding: ${space[3]}px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${colours.neutral[300]};
 `;
 
 const Block: FunctionComponent<BlockProps> = ({
@@ -45,9 +46,10 @@ const Block: FunctionComponent<BlockProps> = ({
   rows = 1,
   title,
   children,
+  ...props
 }) => {
   return (
-    <div css={containerStyles}>
+    <div css={containerStyles} {...props}>
       {title != null && <div css={titleStyles}>{title}</div>}
       <div css={gridStyles(columns, rows)}>{children}</div>
     </div>

@@ -20,6 +20,7 @@ export interface ArticleCellProps {
   subtitle?: string;
   text?: string;
   link?: string;
+  newTab?: boolean;
   isLive?: boolean;
   imageUrl?: string;
 
@@ -79,10 +80,11 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
   isLive = false,
   imageUrl,
   type = ArticleCellType.Default,
+  newTab = false,
 }) => {
   return (
     <div css={containerStyles}>
-      {link != null && <LinkArea href={link} />}
+      {link != null && <LinkArea href={link} targetBlank={newTab} />}
 
       {imageUrl != null && (
         <AspectRatioBox
@@ -110,15 +112,19 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
       <div
         css={titleStyles(type == ArticleCellType.Compact)}
         data-link-hover="underline"
-      >
-        {title}
-      </div>
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
 
       {subtitle != null && shouldShowSubtitle(type) && (
-        <div css={subtitleStyles}>{subtitle}</div>
+        <div
+          css={subtitleStyles}
+          dangerouslySetInnerHTML={{ __html: subtitle }}
+        />
       )}
 
-      {text != null && <p css={textStyles}>{text}</p>}
+      {text != null && (
+        <p css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />
+      )}
     </div>
   );
 };

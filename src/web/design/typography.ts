@@ -20,7 +20,7 @@ export const baseFont: FontConfig = {
 export const headlineFont: FontConfig = {
   family: fonts.serif,
   size: fontSizes.huge,
-  height: lineHeights.dense,
+  height: lineHeights.base,
   weight: fontWeights.bold,
   colour: text.primary,
 };
