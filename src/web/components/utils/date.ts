@@ -44,3 +44,13 @@ export function tinyRelative(
 
   return relativeTimestamp;
 }
+
+export function leftPad(n: number): string {
+  const s = n.toString();
+  if (s.length == 1) return "0" + s;
+  return s;
+}
+
+export function simpleTime(date: Date, separator = ":"): string {
+  return leftPad(date.getHours()) + separator + leftPad(date.getMinutes());
+}

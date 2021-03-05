@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { text } from "../design/palette";
 import { colours, fonts, fontSizes, fontWeights, space } from "../design/theme";
 import { FunctionComponent } from "preact";
-import { tinyRelative } from "./utils/date";
+import { leftPad, simpleTime, tinyRelative } from "./utils/date";
 import { formatDistanceToNow } from "date-fns/esm";
 
 export enum UpdatesCellType {
@@ -104,9 +104,7 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
         })}
       </div>
       {updatedAt != null && (
-        <div css={updatedAtStyles}>
-          Refreshed {`${updatedAt.getHours()}:${updatedAt.getMinutes()}`}
-        </div>
+        <div css={updatedAtStyles}>Refreshed {simpleTime(updatedAt)}</div>
       )}
     </div>
   );

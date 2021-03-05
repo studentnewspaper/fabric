@@ -13,11 +13,12 @@ export type LiveUpdate = {
   createdAt: string;
 };
 
+// TODO: This query has a hard limit of 4!
 const query = `
 query getCellLiveUpdates($liveSlug: String){
   items {
     live_events(filter: {slug:{_eq: $liveSlug}}, limit: 1) {
-      updates(filter: {major_text: {_nnull: true}}, sort:["-published_at"]) {
+      updates(filter: {major_text: {_nnull: true}}, sort:["-published_at"], limit: 4) {
         id
         major_text
         published_at
