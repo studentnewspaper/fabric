@@ -24,9 +24,9 @@ export function serverRender(props: HomePageProps): string {
       <body>
         <div id="root">{<HomePage {...props} />}</div>
         <script
-          dangerouslySetInnerHTML={{
-            __html: `window.HYDRATE={props:${JSON.stringify(props)}};`,
-          }}
+          id="HYDRATE"
+          type="application/json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(props) }}
         />
         <script src="/resources/home.js" async></script>
         <script

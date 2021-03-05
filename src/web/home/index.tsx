@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
 import { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { CellLiveUpdate, getCellLiveUpdates } from "../../gateway/live";
+import { LiveUpdateStub, getCellLiveUpdates } from "../../gateway/live";
+import { ArticleStub } from "../../gateway/wp";
 import ArticleCell, { ArticleCellType } from "../components/ArticleCell";
 import Block from "../components/Block";
 import Container from "../components/Container";
@@ -12,9 +13,10 @@ import { space } from "../design/theme";
 
 export interface HomePageProps {
   initialLiveElectionCell: {
-    updates: CellLiveUpdate[] | null;
+    updates: LiveUpdateStub[] | null;
     updatedAt: string;
   };
+  featuredArticles: ArticleStub[] | null;
 }
 
 const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
@@ -36,9 +38,13 @@ const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
 
 const HomePage: FunctionComponent<HomePageProps> = ({
   initialLiveElectionCell,
+  featuredArticles,
 }) => {
   const [electionCellUpdates, setElectionCellUpdates] = useState(
     initialLiveElectionCell.updates
+  );
+  const [electionCellUpdatedAt, setElectionCellUpdatedAt] = useState(
+    new Date(initialLiveElectionCell.updatedAt)
   );
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,6 +53,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         if (updates != null) {
           console.log("Updated election live");
           setElectionCellUpdates(updates);
+          setElectionCellUpdatedAt(new Date());
         }
       });
     }, 30 * 1000);
@@ -91,6 +98,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
                   timestamp: new Date(update.createdAt),
                   link: `/live/student-elections-2021#${update.id}`,
                 }))}
+                updatedAt={electionCellUpdatedAt}
               />
             )}
             {electionCellUpdates == null && <p>Problem loading updates</p>}
@@ -104,10 +112,28 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             />
           </Wrapper>
         </Block>
-        <Block columns={6} title="Featured">
-          <Wrapper columns={3}>
-            <ArticleCell title="" />
-          </Wrapper>
+        <Block columns={4} title="Featured">
+          {(featuredArticles == null || featuredArticles.length != 3) && (
+            <p>Couldn't load featured articles</p>
+          )}
+          {featuredArticles != null && featuredArticles.length > 1 && (
+            <>
+              {featuredArticles.map((article, i) => (
+                <Wrapper key={article.link} columns={i == 0 ? 2 : 1}>
+                  <ArticleCell
+                    title={article.title}
+                    text={i != 0 ? article.text : undefined}
+                    imageUrl={article.imageUrl}
+                    imageAlt={article.imageAlt}
+                    link={article.link}
+                    type={
+                      i == 0 ? ArticleCellType.Default : ArticleCellType.Compact
+                    }
+                  />
+                </Wrapper>
+              ))}
+            </>
+          )}
         </Block>
       </Container>
       <Footer />

@@ -18,6 +18,7 @@ export interface BlockProps extends PropsOf<"div"> {
 const containerStyles = css`
   width: 100%;
   border-top: 1px solid black;
+  margin-top: ${space[6]}px;
   /* border-bottom: 1px solid black; */
 `;
 

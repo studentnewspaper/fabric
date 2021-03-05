@@ -10,8 +10,7 @@
     "modern-normalize": "^1.0.0",
     "preact": "^10.5.12",
     "preact-render-to-string": "^5.1.12",
-    "react-icons": "^4.2.0",
-    "ts-loader": "^8.0.17"
+    "react-icons": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
@@ -25,9 +24,11 @@
     "@storybook/preact": "6.1.20",
     "@types/node": "^14.14.31",
     "babel-loader": "^8.2.2",
+    "concurrently": "^6.0.0",
     "core-js": "3",
     "modern-css-reset": "^1.4.0",
     "nodemon": "^2.0.7",
+    "ts-loader": "^8.0.17",
     "typescript": "^4.2.2",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
@@ -36,8 +37,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-server": "webpack",
-    "dev": "nodemon --watch build/server.js build/server.js"
+    "start": "concurrently \"webpack --watch\" \"nodemon --watch build/server.js build/server.js\""
   },
   "browserslist": "> 1% and not dead"
 }

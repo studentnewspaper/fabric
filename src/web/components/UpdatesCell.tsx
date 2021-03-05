@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 import { text } from "../design/palette";
-import { fonts, fontSizes, fontWeights, space } from "../design/theme";
+import { colours, fonts, fontSizes, fontWeights, space } from "../design/theme";
 import { FunctionComponent } from "preact";
 import { tinyRelative } from "./utils/date";
+import { formatDistanceToNow } from "date-fns/esm";
 
 export enum UpdatesCellType {
   Stacked = "stacked",
@@ -40,7 +41,23 @@ const linkStyles = css`
   }
 `;
 
-const containerStyles = (type: UpdatesCellType) => {
+const updatedAtStyles = css`
+  font-family: ${fonts.sans};
+  font-size: ${fontSizes.small}rem;
+  color: ${text.secondary};
+  padding-top: ${space[2]}px;
+  margin-top: ${space[4]}px;
+  border-top: 1px solid ${colours.neutral[300]};
+  width: max-content;
+`;
+
+const containerStyles = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const gridStyles = (type: UpdatesCellType) => {
   switch (type) {
     case UpdatesCellType.Stacked:
       return null;
@@ -61,29 +78,36 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
   updatedAt,
 }) => {
   return (
-    <div css={containerStyles(type)}>
-      {updates.flatMap((update) => {
-        const text =
-          update.link != null ? (
-            <a css={linkStyles} href={update.link}>
-              {update.text}
-            </a>
-          ) : (
-            update.text
-          );
-        return [
-          <div
-            css={[
-              timeStyles,
-              type == UpdatesCellType.Stacked && stackedTimeStyles,
-            ]}
-            key={update.id + "-t"}
-          >
-            {tinyRelative(update.timestamp)}
-          </div>,
-          <div key={update.id + "-l"}>{text}</div>,
-        ];
-      })}
+    <div css={containerStyles}>
+      <div css={gridStyles(type)}>
+        {updates.flatMap((update) => {
+          const text =
+            update.link != null ? (
+              <a css={linkStyles} href={update.link}>
+                {update.text}
+              </a>
+            ) : (
+              update.text
+            );
+          return [
+            <div
+              css={[
+                timeStyles,
+                type == UpdatesCellType.Stacked && stackedTimeStyles,
+              ]}
+              key={update.id + "-t"}
+            >
+              {tinyRelative(update.timestamp)}
+            </div>,
+            <div key={update.id + "-l"}>{text}</div>,
+          ];
+        })}
+      </div>
+      {updatedAt != null && (
+        <div css={updatedAtStyles}>
+          Refreshed {`${updatedAt.getHours()}:${updatedAt.getMinutes()}`}
+        </div>
+      )}
     </div>
   );
 };

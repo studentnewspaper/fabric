@@ -4,6 +4,7 @@ import { colours, fonts, letterSpacings, space } from "../design/theme";
 import { FunctionComponent } from "preact";
 import Logo from "./Logo";
 import Container from "./Container";
+import LinkArea from "./LinkArea";
 
 export interface HeaderProps {}
 
@@ -65,13 +66,19 @@ const Header: FunctionComponent<HeaderProps> = ({}) => {
           <a href="/">Latest</a>
           <a href="#">Student Elections</a>
           <a href="#">LGBTQ+</a>
+          <a href="/archive">Archive</a>
           <a href="/about">About</a>
         </nav>
       </Container>
       <Container css={dividerStyles(false)}>
         <div css={mastheadStyles}>
           <div></div>
-          <div>
+          <div
+            css={css`
+              position: relative;
+            `}
+          >
+            <LinkArea href="/" />
             <Logo css={logoStyles} />
           </div>
         </div>

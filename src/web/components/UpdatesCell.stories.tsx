@@ -28,3 +28,7 @@ Stacked.args = { type: UpdatesCellType.Stacked };
 export const Inline = Template.bind({});
 Inline.decorators = [constrain("600px")];
 Inline.args = { type: UpdatesCellType.Inline };
+
+export const UpdatedAt = Template.bind({});
+UpdatedAt.decorators = [constrain("600px")];
+UpdatedAt.args = { type: UpdatesCellType.Inline, updatedAt: new Date() };

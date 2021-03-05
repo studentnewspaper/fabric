@@ -23,6 +23,7 @@ export interface ArticleCellProps {
   newTab?: boolean;
   isLive?: boolean;
   imageUrl?: string;
+  imageAlt?: string;
 
   type?: ArticleCellType;
 }
@@ -33,6 +34,7 @@ const containerStyles = css`
 
 const titleStyles = (isCompact: boolean) => css`
   ${generateStyles(!isCompact ? headlineFont : subtitleFont)}
+  width: 95%;
 `;
 
 const subtitleStyles = css`
@@ -40,14 +42,19 @@ const subtitleStyles = css`
   margin-top: ${space[3]}px;
 `;
 
-const imageStyles = css`
+const imageContainerStyles = css`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-size: cover;
-  background-position: center;
+`;
+
+const imageStyles = css`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 const textStyles = css`
@@ -79,9 +86,11 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
   link,
   isLive = false,
   imageUrl,
+  imageAlt,
   type = ArticleCellType.Default,
   newTab = false,
 }) => {
+  if (typeof window != "undefined") console.log(text);
   return (
     <div css={containerStyles}>
       {link != null && <LinkArea href={link} targetBlank={newTab} />}
@@ -93,10 +102,9 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
             margin-bottom: ${space[5]}px;
           `}
         >
-          <div
-            css={imageStyles}
-            style={{ backgroundImage: `url(${imageUrl})` }}
-          />
+          <div css={imageContainerStyles}>
+            <img css={imageStyles} src={imageUrl} alt={imageAlt} />
+          </div>
         </AspectRatioBox>
       )}
 
@@ -123,7 +131,7 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
       )}
 
       {text != null && (
-        <p css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />
+        <div css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />
       )}
     </div>
   );
