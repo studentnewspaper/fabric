@@ -90,7 +90,6 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
   type = ArticleCellType.Default,
   newTab = false,
 }) => {
-  if (typeof window != "undefined") console.log(text);
   return (
     <div css={containerStyles}>
       {link != null && <LinkArea href={link} targetBlank={newTab} />}

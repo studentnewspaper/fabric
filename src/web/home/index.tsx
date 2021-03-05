@@ -46,17 +46,19 @@ const HomePage: FunctionComponent<HomePageProps> = ({
   const [electionCellUpdatedAt, setElectionCellUpdatedAt] = useState(
     new Date(initialLiveElectionCell.updatedAt)
   );
+  async function updateElectionCell() {
+    const updates = await getCellLiveUpdates(`student-elections-2021`);
+    const updatedAt = new Date();
+    setElectionCellUpdatedAt(updatedAt);
+    setElectionCellUpdates(updates);
+    console.log(`Election cell updated at ${updatedAt.toString()}`);
+  }
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      getCellLiveUpdates(`student-elections-2021`).then((updates) => {
-        // TODO: Query for delta updates
-        if (updates != null) {
-          console.log("Updated election live");
-          setElectionCellUpdates(updates);
-          setElectionCellUpdatedAt(new Date());
-        }
-      });
-    }, 30 * 1000);
+    if (typeof window == "undefined") return;
+    // Update on first rehydration, then every 30s after (good for caching)
+    updateElectionCell();
+    const interval = setInterval(() => updateElectionCell(), 30 * 1000);
     return () => clearInterval(interval);
   }, []);
 
