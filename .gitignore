@@ -230,3 +230,4 @@ $RECYCLE.BIN/
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/yarn,node,react,storybookjs,windows,linux,macos,vscode
+build
