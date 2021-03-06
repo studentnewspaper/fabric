@@ -84,6 +84,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting opens on the <b>8th of March</b>, and we'll be bringing you the latest all the way."
               isLive
               link="/live/student-elections-2021"
+              clipText={false}
             />
           </Wrapper>
           <Wrapper columns={1} rows={2}>
@@ -93,6 +94,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               type={ArticleCellType.Compact}
               link="https://www.eusa.ed.ac.uk/yourvoice/elections/march/vote/"
               newTab
+              clipText={false}
             />
           </Wrapper>
           <Wrapper columns={2} rows={2}>

@@ -134,6 +134,11 @@ function createImageUrl(file: string): string {
   // return `https://cms.studentnewspaper.org/wp-content/uploads/${file}`;
 }
 
+function processExcerpt(raw: string): string {
+  // Remove the [...] from the end of excerpts
+  return raw.replace("[&hellip;]", "");
+}
+
 export async function getFeaturedArticles(
   n: number
 ): Promise<ArticleStub[] | null> {
@@ -165,7 +170,7 @@ export async function getFeaturedArticles(
               createImageUrl(post.featuredImage.node.mediaDetails.file)
             : undefined,
         imageAlt: post?.featuredImage?.node?.altText,
-        text: post?.excerpt,
+        text: processExcerpt(post.excerpt),
       };
     });
 
@@ -216,7 +221,7 @@ export async function getSectionArticles(
         return {
           slug: article.slug,
           title: article.title,
-          text: article.excerpt,
+          text: processExcerpt(article.excerpt),
           imageUrl: article.featuredImage?.node?.mediaDetails.file
             ? createImageUrl(article.featuredImage?.node?.mediaDetails.file)
             : undefined,

@@ -19,6 +19,7 @@ export interface ArticleCellProps {
   title: string;
   subtitle?: string;
   text?: string;
+  clipText?: boolean;
   link?: string;
   newTab?: boolean;
   isLive?: boolean;
@@ -59,6 +60,23 @@ const imageStyles = css`
 
 const textStyles = css`
   margin-top: ${space[4]}px;
+  position: relative;
+`;
+
+const textOverlay = css`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    transparent 35%,
+    white 90%,
+    white
+  );
+  pointer-events: none;
 `;
 
 const shouldShowSubtitle = (type: ArticleCellType): boolean => {
@@ -89,6 +107,7 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
   imageAlt,
   type = ArticleCellType.Default,
   newTab = false,
+  clipText = true,
 }) => {
   return (
     <div css={containerStyles}>
@@ -129,9 +148,15 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
         />
       )}
 
-      {text != null && (
-        <div css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />
-      )}
+      {text != null &&
+        (clipText ? (
+          <div css={textStyles}>
+            <div dangerouslySetInnerHTML={{ __html: text }} />
+            <div css={textOverlay}></div>
+          </div>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: text }} />
+        ))}
     </div>
   );
 };
