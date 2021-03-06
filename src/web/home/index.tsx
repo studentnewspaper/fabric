@@ -5,6 +5,7 @@ import { LiveUpdateStub, getCellLiveUpdates } from "../../gateway/live";
 import { ArticleStub } from "../../gateway/wp";
 import ArticleCell, { ArticleCellType } from "../components/ArticleCell";
 import Block from "../components/Block";
+import ClientGate from "../components/ClientGate";
 import Container from "../components/Container";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -141,40 +142,46 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             </>
           )}
         </Block>
-        {sections.map(({ title, articles }) => {
-          return (
-            <Block key={title} title={title} columns={4} rows={2}>
-              {articles.map((article, i) => {
-                return (
-                  <Wrapper
-                    columns={i == 0 ? 2 : 1}
-                    rows={i == 0 ? 2 : 1}
-                    key={article.slug}
-                  >
-                    <ArticleCell
-                      title={article.title}
-                      imageUrl={i == 0 || i > 2 ? article.imageUrl : undefined}
-                      imageAlt={article.imageAlt}
-                      text={i < 3 ? article.text : undefined}
-                      link={`/article/${article.slug}`}
-                      type={
-                        i == 0
-                          ? ArticleCellType.Default
-                          : ArticleCellType.Compact
-                      }
-                    />
-                  </Wrapper>
-                );
-              })}
-            </Block>
-          );
-        })}
+        <ClientGate>
+          {sections.map(({ title, articles }) => {
+            return (
+              <Block key={title} title={title} columns={4} rows={2}>
+                {articles.map((article, i) => {
+                  return (
+                    <Wrapper
+                      columns={i == 0 ? 2 : 1}
+                      rows={i == 0 ? 2 : 1}
+                      key={article.slug}
+                    >
+                      <ArticleCell
+                        title={article.title}
+                        imageUrl={
+                          i == 0 || i > 2 ? article.imageUrl : undefined
+                        }
+                        imageAlt={article.imageAlt}
+                        text={i < 3 ? article.text : undefined}
+                        link={`/article/${article.slug}`}
+                        type={
+                          i == 0
+                            ? ArticleCellType.Default
+                            : ArticleCellType.Compact
+                        }
+                      />
+                    </Wrapper>
+                  );
+                })}
+              </Block>
+            );
+          })}
+        </ClientGate>
       </Container>
-      <Footer
-        css={css`
-          margin-top: ${space[9]}px;
-        `}
-      />
+      <ClientGate>
+        <Footer
+          css={css`
+            margin-top: ${space[9]}px;
+          `}
+        />
+      </ClientGate>
     </>
   );
 };

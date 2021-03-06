@@ -4,11 +4,13 @@ import renderHome from "../web/home/server";
 import renderLive from "../web/live/server";
 import serve from "fastify-static";
 import {
+  Category,
   getFeaturedArticles,
   getSectionArticles,
   sectionDefinitions,
 } from "../gateway/wp";
 import { join } from "path";
+import Cache from "./cache";
 
 // Partial hydration: https://github.com/preactjs/preact/issues/2364
 
@@ -21,16 +23,28 @@ server.addHook("onSend", (request, reply, payload, next) => {
   next();
 });
 
+const electionCellCache = new Cache(2 * 60, getCellLiveUpdates);
+const sectionCache = new Cache(20 * 60, async (key) => {
+  if (key == "featured") {
+    return getFeaturedArticles(3);
+  }
+  if (key in sectionDefinitions) {
+    return getSectionArticles(
+      sectionDefinitions[key as keyof typeof sectionDefinitions]
+    );
+  }
+});
 server.get("/", async (req, res) => {
   const [
     electionCellUpdates,
     featuredArticles,
     ...sections
   ] = await Promise.all([
-    getCellLiveUpdates(`student-elections-2021`),
-    getFeaturedArticles(3),
-    ...Object.entries(sectionDefinitions).map(([_title, categories]) =>
-      getSectionArticles(categories)
+    electionCellCache.get(`student-elections-2021`),
+    // TODO: Type check these keys
+    sectionCache.get("featured"),
+    ...Object.entries(sectionDefinitions).map(([title]) =>
+      sectionCache.get(title)
     ),
   ] as Promise<any>[]);
 
