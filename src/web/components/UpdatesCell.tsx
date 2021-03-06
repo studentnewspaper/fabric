@@ -14,6 +14,7 @@ export interface UpdatesCellProps extends PropsOf<"div"> {
   updates: { id: string; timestamp: Date; text: string; link?: string }[];
   type?: UpdatesCellType;
   updatedAt?: Date;
+  updateFrequency?: string;
 }
 
 const timeStyles = css`
@@ -76,6 +77,7 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
   updates,
   type = UpdatesCellType.Stacked,
   updatedAt,
+  updateFrequency,
   ...props
 }) => {
   return (
@@ -105,7 +107,10 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
         })}
       </div>
       {updatedAt != null && (
-        <div css={updatedAtStyles}>Refreshed {simpleTime(updatedAt)}</div>
+        <div css={updatedAtStyles}>
+          Refreshed {simpleTime(updatedAt)}
+          {updateFrequency != null && `, every ${updateFrequency}`}
+        </div>
       )}
     </div>
   );

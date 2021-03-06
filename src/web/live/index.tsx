@@ -36,7 +36,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
   useEffect(() => {
     if (typeof window == "undefined") return;
     update();
-    const interval = setInterval(() => update(), 60 * 1000);
+    const interval = setInterval(() => update(), 120 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -99,6 +99,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
               }))}
             type={UpdatesCellType.Stacked}
             updatedAt={updatedAt}
+            updateFrequency="2m"
           />
         </div>
       </Container>

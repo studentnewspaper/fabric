@@ -60,7 +60,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
     if (typeof window == "undefined") return;
     // Update on first rehydration, then every 30s after (good for caching)
     updateElectionCell();
-    const interval = setInterval(() => updateElectionCell(), 30 * 1000);
+    const interval = setInterval(() => updateElectionCell(), 120 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -104,6 +104,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
                   link: `/live/student-elections-2021#${update.id}`,
                 }))}
                 updatedAt={electionCellUpdatedAt}
+                updateFrequency="2m"
               />
             )}
             {electionCellUpdates == null && <p>Problem loading updates</p>}

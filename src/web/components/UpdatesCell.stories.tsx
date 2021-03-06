@@ -31,4 +31,8 @@ Inline.args = { type: UpdatesCellType.Inline };
 
 export const UpdatedAt = Template.bind({});
 UpdatedAt.decorators = [constrain("600px")];
-UpdatedAt.args = { type: UpdatesCellType.Inline, updatedAt: new Date() };
+UpdatedAt.args = {
+  type: UpdatesCellType.Inline,
+  updatedAt: new Date(),
+  updateFrequency: "2m",
+};
