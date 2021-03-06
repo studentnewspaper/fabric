@@ -12,6 +12,7 @@ export default {
 <blockquote>"The University is working closely with NHS Lothian's Health Protection team to identify staff and students who test positive for Covid-19.</blockquote>
 <blockquote>"We are keeping our students and staff informed and following all Scottish Government guidance. We are providing care and support to those self-isolating, both in University-owned and private accommodation."</blockquote>`,
     author: "Craig Buchan",
+    authorSlug: "craig-buchan",
     createdAt: subHours(new Date(), 2),
     id: "0001",
   },

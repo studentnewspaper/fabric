@@ -81,8 +81,10 @@ export async function getCellLiveUpdates(
 
 export type LiveEvent = {
   title: string;
+  subtitle?: string;
   updates: {
     id: string;
+    majorText: string | null;
     body: string;
     author: { name: string; slug: string };
     createdAt: string;
@@ -93,6 +95,7 @@ export const fullQuery = `query getLive($liveSlug: String) {
   items {
     live_events(filter: {slug: {_eq: $liveSlug}}, limit: 1) {
       title
+      subtitle
       updates(filter:{status: {_eq: "published"}}, limit: 20) {
         id
         content
@@ -114,6 +117,7 @@ export type FullResponse = {
       live_events:
         | {
             title: string;
+            subtitle: string | null;
             updates:
               | {
                   id: string;
@@ -157,14 +161,15 @@ export async function getLiveEvent(
     }
 
     const event = body.data.items.live_events[0];
-    const title = event.title;
     const updates = event.updates ?? [];
 
     return {
-      title,
+      title: event.title,
+      subtitle: event.subtitle ?? undefined,
       updates: updates.map((update) => ({
         id: update.id,
         body: update.content,
+        majorText: update.major_text,
         author: {
           name: update.author.name,
           slug: update.author.slug,

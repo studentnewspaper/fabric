@@ -10,7 +10,6 @@ export interface LiveUpdateProps {
   id: string;
   body: string;
   author: string;
-  // TODO: Update storybook with this prop
   authorSlug: string;
   createdAt: Date;
 }

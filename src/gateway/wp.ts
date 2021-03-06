@@ -67,16 +67,16 @@ type ArticleResponse = {
   title: string;
   excerpt: string;
   dateGmt: string;
-  featuredImage?: {
-    node?: {
+  featuredImage: {
+    node: {
       altText: string;
       mediaDetails: {
         file: string;
         width: number;
         height: number;
       };
-    };
-  };
+    } | null;
+  } | null;
 };
 
 const featuredQuery = `query getArticlesByTags($n: Int!) {

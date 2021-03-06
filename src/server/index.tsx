@@ -48,13 +48,18 @@ server.get("/", async (req, res) => {
   res.type(`text/html; ${utf}`).send(html);
 });
 
-server.get("/live", async (req, res) => {
-  const event = await getLiveEvent("student-elections-2021");
+server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
+  const slug = req.params.slug;
+  const event = await getLiveEvent(slug);
   if (event == null) {
     return res.status(404).send("Not found");
   }
 
-  const html = renderLive({ event });
+  const html = renderLive({
+    slug,
+    initialEvent: event,
+    firstUpdatedAt: new Date().toISOString(),
+  });
   res.type(`text/html; ${utf}`).send(html);
 });
 
@@ -63,7 +68,7 @@ server.register(serve, {
   prefix: "/static",
 });
 
-server.listen(8000, (err, address) => {
+server.listen(8000, "0.0.0.0", (err, address) => {
   if (err) throw err;
   console.log(`Server listening on ${address}`);
 });

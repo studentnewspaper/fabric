@@ -80,8 +80,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             <ArticleCell
               title="Campaigning begins for Student Elections"
               subtitle="30 students are standing for five sabbatical positions"
-              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials which will represent their views and concerns to the university. Voting opens <b>8th March</b>, and we'll be bringing you the latest all the way."
+              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting opens on the <b>8th of March</b>, and we'll be bringing you the latest all the way."
               isLive
+              link="/live/student-elections-2021"
             />
           </Wrapper>
           <Wrapper columns={1}>

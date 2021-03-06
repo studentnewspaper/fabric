@@ -64,10 +64,13 @@ const Header: FunctionComponent<HeaderProps> = ({}) => {
       <Container css={dividerStyles(false)}>
         <nav css={navStyles}>
           <a href="/">Latest</a>
-          <a href="#">Student Elections</a>
-          <a href="#">LGBTQ+</a>
+          {/* <a href="#">Student Elections</a> */}
+          {/* <a href="#">LGBTQ+</a> */}
           <a href="/archive">Archive</a>
           <a href="/about">About</a>
+          <a style={{ color: colours.neutral[500] }} href="/old">
+            Old site
+          </a>
         </nav>
       </Container>
       <Container css={dividerStyles(false)}>

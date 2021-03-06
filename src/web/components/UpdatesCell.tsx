@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, PropsOf } from "@emotion/react";
 import { text } from "../design/palette";
 import { colours, fonts, fontSizes, fontWeights, space } from "../design/theme";
 import { FunctionComponent } from "preact";
@@ -10,7 +10,7 @@ export enum UpdatesCellType {
   Inline = "inline",
 }
 
-export interface UpdatesCellProps {
+export interface UpdatesCellProps extends PropsOf<"div"> {
   updates: { id: string; timestamp: Date; text: string; link?: string }[];
   type?: UpdatesCellType;
   updatedAt?: Date;
@@ -76,9 +76,10 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
   updates,
   type = UpdatesCellType.Stacked,
   updatedAt,
+  ...props
 }) => {
   return (
-    <div css={containerStyles}>
+    <div css={containerStyles} {...props}>
       <div css={gridStyles(type)}>
         {updates.flatMap((update) => {
           const text =
