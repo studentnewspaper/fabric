@@ -80,6 +80,8 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
   updateFrequency,
   ...props
 }) => {
+  const isBrowser = typeof window != "undefined";
+
   return (
     <div css={containerStyles} {...props}>
       <div css={gridStyles(type)}>
@@ -109,7 +111,8 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
       {updatedAt != null && (
         <div css={updatedAtStyles}>
           Refreshed {simpleTime(updatedAt)}
-          {updateFrequency != null && `, every ${updateFrequency}`}
+          {/* Only show update frequency if javascript loaded */}
+          {isBrowser && updateFrequency != null && `, every ${updateFrequency}`}
         </div>
       )}
     </div>

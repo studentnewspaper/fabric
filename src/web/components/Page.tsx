@@ -11,7 +11,7 @@ import { resolve } from "path";
 
 function loadManifest(): { [entrypoint: string]: string } {
   const manifest = JSON.parse(
-    readFileSync(resolve(__dirname, "./static/manifest.json"), "utf8")
+    readFileSync(resolve(__dirname, "../static/manifest.json"), "utf8")
   );
   return manifest;
 }
@@ -58,7 +58,10 @@ const Page: FunctionComponent<PageProps> = ({
             />
           )}
         {entrypoint != null && (
-          <script src={manifest[entrypoint]} async></script>
+          <>
+            <script src={manifest["commons.js"]} defer></script>
+            <script src={manifest[entrypoint]} defer></script>
+          </>
         )}
         <script
           dangerouslySetInnerHTML={{
