@@ -85,10 +85,10 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               link="/live/student-elections-2021"
             />
           </Wrapper>
-          <Wrapper columns={1}>
+          <Wrapper columns={1} rows={2}>
             <ArticleCell
               title="Read the manifestos"
-              text="All the candidates are on the EUSA site."
+              text="You can find all the candidates up for election on the EUSA site. See what they've pledged in their manifestos."
               type={ArticleCellType.Compact}
               link="https://www.eusa.ed.ac.uk/yourvoice/elections/march/vote/"
               newTab
@@ -108,14 +108,14 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             )}
             {electionCellUpdates == null && <p>Problem loading updates</p>}
           </Wrapper>
-          <Wrapper columns={1}>
+          {/* <Wrapper columns={1}>
             <ArticleCell
               title="Politics, breaking"
               text="It has never been more crucial that our voices are heard."
               link="/article/student-politics-is-dying-and-this-election-could-be-the-final-blow"
               type={ArticleCellType.Compact}
             />
-          </Wrapper>
+          </Wrapper> */}
         </Block>
         <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (
