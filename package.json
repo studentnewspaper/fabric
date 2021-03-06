@@ -41,7 +41,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "webpack",
-    "start": "concurrently \"webpack --watch\" \"nodemon --watch build/server.js build/server.js\""
+    "start": "concurrently \"webpack --watch\" \"nodemon --watch build/server/index.js build/server/index.js\""
   },
   "browserslist": "> 1% and not dead"
 }

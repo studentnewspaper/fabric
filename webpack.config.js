@@ -2,7 +2,7 @@ const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 const baseConfig = (mode) => ({
-  mode: mode != null ? mode : "production",
+  mode: mode != null ? mode : "development",
   resolve: {
     alias: {
       react: "preact/compat",
