@@ -79,7 +79,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         >
           <Wrapper columns={3} rows={2}>
             <ArticleCell
-              title="Campaigning begins for Student Elections"
+              title="Campaigning underway for Student Elections"
               subtitle="30 students are standing for five sabbatical positions"
               text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting opens on the <b>8th of March</b>, and we'll be bringing you the latest all the way."
               isLive
@@ -89,7 +89,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           <Wrapper columns={1} rows={2}>
             <ArticleCell
               title="Read the manifestos"
-              text="You can find all the candidates up for election on the EUSA site. See what they've pledged in their manifestos."
+              text="You can find all the candidates standing for election on the EUSA site. See what they've pledged in their manifestos."
               type={ArticleCellType.Compact}
               link="https://www.eusa.ed.ac.uk/yourvoice/elections/march/vote/"
               newTab
