@@ -4,7 +4,7 @@ export interface ClientGateProps {}
 
 const ClientGate: FunctionComponent<ClientGateProps> = ({ children }) => {
   const isBrowser = typeof window != "undefined";
-  return isBrowser ? <>{children}</> : <div style={{ height: "500px" }}></div>;
+  return isBrowser ? <>{children}</> : null;
 };
 
 export default ClientGate;

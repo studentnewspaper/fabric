@@ -13,10 +13,10 @@ export default class Cache<T> {
       checkperiod: Math.floor(ttl / 3),
     });
 
-    this.store.on("expired", (key) => {
+    this.store.on("expired", (key, value) => {
       // Don't call the expired event on this key for another minute while we load up new data
       console.log(`Updating key ${key}`);
-      this.store.ttl(key, 60);
+      this.store.set(key, value, 60);
       getter(key).then(
         (data) => {
           this.store.set(key, data);

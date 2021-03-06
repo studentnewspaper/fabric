@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { colours, space } from "../design/theme";
 import { FunctionComponent } from "preact";
+import ClientGate from "./ClientGate";
 
 export interface LiveLayoutProps {
   updates: JSX.Element[];
@@ -22,11 +23,14 @@ const dividerStyles = css`
 `;
 
 const LiveLayout: FunctionComponent<LiveLayoutProps> = ({ updates }) => {
+  const $updates = updates
+    .flatMap((update) => [<div css={dividerStyles} />, update])
+    .slice(1);
+
   return (
     <div css={containerStyles}>
-      {updates
-        .flatMap((update) => [<div css={dividerStyles} />, update])
-        .slice(1)}
+      {$updates.slice(0, 6)}
+      <ClientGate>{$updates.slice(6)}</ClientGate>
     </div>
   );
 };

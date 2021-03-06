@@ -62,9 +62,10 @@ server.get("/", async (req, res) => {
   res.type(`text/html; ${utf}`).send(html);
 });
 
+const liveCache = new Cache(2 * 60, getLiveEvent);
 server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
   const slug = req.params.slug;
-  const event = await getLiveEvent(slug);
+  const event = await liveCache.get(slug);
   if (event == null) {
     return res.status(404).send("Not found");
   }
