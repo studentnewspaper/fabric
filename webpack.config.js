@@ -1,4 +1,5 @@
 const path = require("path");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
 module.exports = (env, argv) => {
   const configurations = [
@@ -22,11 +23,15 @@ module.exports = (env, argv) => {
       target: "web",
       entry: {
         home: "./src/web/home/client.tsx",
+        live: "./src/web/live/client.tsx",
       },
       output: {
         path: path.resolve(__dirname, "build/static"),
+        publicPath: "/static/",
+        filename: "[name].[contenthash].js",
         assetModuleFilename: "static/[hash][ext][query]",
       },
+      plugins: [new WebpackManifestPlugin()],
     },
   ];
 

@@ -38,10 +38,10 @@ export const sectionDefinitions = {
 export const FEATURED_TAG = 12;
 
 export type ArticleStub = {
+  slug: string;
   title: string;
   subtitle?: string;
   text?: string;
-  link?: string;
   imageUrl?: string;
   imageAlt?: string;
 };
@@ -154,8 +154,8 @@ export async function getFeaturedArticles(
 
     const articles: ArticleStub[] = body.data.tag.posts.nodes.map((post) => {
       return {
+        slug: post.slug,
         title: post.title,
-        link: `/article/${post.slug}`,
         imageUrl:
           post.featuredImage?.node?.mediaDetails?.file != null
             ? // ? `https://i0.wp.com/cms.studentnewspaper.org/wp-content/uploads/${post.featuredImage?.node?.mediaDetails.file}?resize=800%2C800&ssl=1&ulb=true&strip=all`
@@ -211,9 +211,9 @@ export async function getSectionArticles(
           throw new Error("Illegal state");
         }
         return {
+          slug: article.slug,
           title: article.title,
           text: article.excerpt,
-          link: `/article/${article.slug}`,
           imageUrl: article.featuredImage?.node?.mediaDetails.file
             ? createImageUrl(article.featuredImage?.node?.mediaDetails.file)
             : undefined,

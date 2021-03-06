@@ -1,6 +1,7 @@
 import fastify from "fastify";
-import { getCellLiveUpdates } from "../gateway/live";
-import { serverRender } from "../web/home/server";
+import { getCellLiveUpdates, getLiveEvent } from "../gateway/live";
+import renderHome from "../web/home/server";
+import renderLive from "../web/live/server";
 import serve from "fastify-static";
 import {
   getFeaturedArticles,
@@ -33,7 +34,7 @@ server.get("/", async (req, res) => {
     ),
   ] as Promise<any>[]);
 
-  const html = serverRender({
+  const html = renderHome({
     initialLiveElectionCell: {
       updates: electionCellUpdates,
       updatedAt: new Date().toISOString(),
@@ -44,6 +45,16 @@ server.get("/", async (req, res) => {
       articles: sections[i],
     })),
   });
+  res.type(`text/html; ${utf}`).send(html);
+});
+
+server.get("/live", async (req, res) => {
+  const event = await getLiveEvent("student-elections-2021");
+  if (event == null) {
+    return res.status(404).send("Not found");
+  }
+
+  const html = renderLive({ event });
   res.type(`text/html; ${utf}`).send(html);
 });
 

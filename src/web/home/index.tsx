@@ -123,13 +123,13 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           {featuredArticles != null && featuredArticles.length > 1 && (
             <>
               {featuredArticles.map((article, i) => (
-                <Wrapper key={article.link} columns={i == 0 ? 2 : 1}>
+                <Wrapper key={article.slug} columns={i == 0 ? 2 : 1}>
                   <ArticleCell
                     title={article.title}
                     text={i != 0 ? article.text : undefined}
                     imageUrl={article.imageUrl}
                     imageAlt={article.imageAlt}
-                    link={article.link}
+                    link={`/article/${article.slug}`}
                     type={
                       i == 0 ? ArticleCellType.Default : ArticleCellType.Compact
                     }
@@ -147,14 +147,14 @@ const HomePage: FunctionComponent<HomePageProps> = ({
                   <Wrapper
                     columns={i == 0 ? 2 : 1}
                     rows={i == 0 ? 2 : 1}
-                    key={article.link}
+                    key={article.slug}
                   >
                     <ArticleCell
                       title={article.title}
                       imageUrl={i == 0 || i > 2 ? article.imageUrl : undefined}
                       imageAlt={article.imageAlt}
                       text={i < 3 ? article.text : undefined}
-                      link={article.link}
+                      link={`/article/${article.slug}`}
                       type={
                         i == 0
                           ? ArticleCellType.Default

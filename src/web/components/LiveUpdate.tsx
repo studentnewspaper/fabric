@@ -10,6 +10,8 @@ export interface LiveUpdateProps {
   id: string;
   body: string;
   author: string;
+  // TODO: Update storybook with this prop
+  authorSlug: string;
   createdAt: Date;
 }
 
@@ -49,6 +51,7 @@ const selectableStyles = css`
 const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
   body,
   author,
+  authorSlug,
   createdAt,
   id,
 }) => {
@@ -56,12 +59,15 @@ const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
   const canCopy = isBrowser && "clipboard" in navigator;
   const canShare = isBrowser && "share" in navigator;
 
-  const url = `${window.location.href}#${id}`;
+  const getUrl = () => {
+    if (!isBrowser) throw new Error("Can only get URL on client");
+    return `${window.location.href}#${id}`;
+  };
   const copyLink = () => {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(getUrl());
   };
   const shareLink = () => {
-    navigator.share({ url });
+    navigator.share({ url: getUrl() });
   };
 
   return (
@@ -78,7 +84,7 @@ const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
             {tinyRelative(createdAt, true)}
           </div>
           <div css={authorStyles}>
-            <a css={authorStyles} href="#">
+            <a css={authorStyles} href={`/author/${authorSlug}`}>
               {author}
             </a>
           </div>
