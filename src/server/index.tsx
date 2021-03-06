@@ -66,6 +66,9 @@ server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
 server.register(serve, {
   root: join(__dirname, "static"),
   prefix: "/static",
+  cacheControl: true,
+  immutable: true,
+  maxAge: "1yr",
 });
 
 server.listen(8000, "0.0.0.0", (err, address) => {
