@@ -24,17 +24,23 @@ server.use((_req, res, next) => {
   next();
 });
 
-const electionCellCache = new Cache(2 * 60, getCellLiveUpdates);
-const sectionCache = new Cache(20 * 60, async (key) => {
-  if (key == "featured") {
-    return getFeaturedArticles(3);
-  }
-  if (key in sectionDefinitions) {
-    return getSectionArticles(
-      sectionDefinitions[key as keyof typeof sectionDefinitions]
-    );
-  }
-});
+const electionCellCache = new Cache(2 * 60, getCellLiveUpdates, [
+  `student-elections-2021`,
+]);
+const sectionCache = new Cache(
+  20 * 60,
+  async (key) => {
+    if (key == "featured") {
+      return getFeaturedArticles(3);
+    }
+    if (key in sectionDefinitions) {
+      return getSectionArticles(
+        sectionDefinitions[key as keyof typeof sectionDefinitions]
+      );
+    }
+  },
+  Object.keys(sectionDefinitions)
+);
 server.get("/", compression(), async (req, res) => {
   const [
     electionCellUpdates,
@@ -63,7 +69,7 @@ server.get("/", compression(), async (req, res) => {
   res.type("html").send(doctype + html);
 });
 
-const liveCache = new Cache(2 * 60, getLiveEvent);
+const liveCache = new Cache(2 * 60, getLiveEvent, ["student-elections-2021"]);
 server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
   const slug = req.params.slug;
   const event = await liveCache.get(slug);
