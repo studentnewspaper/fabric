@@ -16,6 +16,7 @@ import Cache from "./cache";
 
 const server = fastify();
 const utf = "charset=utf-8";
+const doctype = "<!DOCTYPE html>";
 
 server.addHook("onSend", (request, reply, payload, next) => {
   reply.header("Cross-Origin-Opener-Policy", "same-origin");
@@ -59,7 +60,7 @@ server.get("/", async (req, res) => {
       articles: sections[i],
     })),
   });
-  res.type(`text/html; ${utf}`).send(html);
+  res.type(`text/html; ${utf}`).send(doctype + html);
 });
 
 const liveCache = new Cache(2 * 60, getLiveEvent);
@@ -75,7 +76,7 @@ server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
     initialEvent: event,
     firstUpdatedAt: new Date().toISOString(),
   });
-  res.type(`text/html; ${utf}`).send(html);
+  res.type(`text/html; ${utf}`).send(doctype + html);
 });
 
 server.register(serve, {

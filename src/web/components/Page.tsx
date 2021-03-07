@@ -29,7 +29,7 @@ const Page: FunctionComponent<PageProps> = ({
   children,
 }) => {
   return (
-    <html>
+    <html lang="en">
       <head>
         <title>{title && `${title} - `}The Student</title>
         <link rel="stylesheet" href={`/${resetUrl}`} />
@@ -43,6 +43,7 @@ const Page: FunctionComponent<PageProps> = ({
             __html: `*{box-sizing:border-box}body{color:${text.primary};font-family:${fonts.serif};line-height:${lineHeights.base}}html,body,#root{padding:0;margin:0;position:absolute;top:0;bottom:0;left:0;right:0;}`,
           }}
         ></style>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
         <div id="root">{children}</div>
