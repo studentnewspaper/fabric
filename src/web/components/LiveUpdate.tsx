@@ -21,7 +21,7 @@ const metaStyles = css`
 
   @media (max-width: 800px) {
     flex-direction: column;
-    margin-bottom: ${space[2]}px;
+    margin-bottom: ${space[4]}px;
     text-align: left;
   }
 `;
@@ -30,17 +30,11 @@ const timeStyles = css`
   font-weight: ${fontWeights.bold};
   color: ${text.live};
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: right;
-  gap: ${space[3]}px;
   margin-bottom: ${space[2]}px;
 
   @media (max-width: 800px) {
-    gap: ${space[2]}px;
+    display: inline-block;
     margin-bottom: ${space[1]}px;
-    justify-content: left;
   }
 `;
 
@@ -50,6 +44,11 @@ const authorStyles = css`
 
   :hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 800px) {
+    display: inline-block;
+    margin-left: ${space[2]}px;
   }
 `;
 
@@ -69,6 +68,12 @@ const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
   const canCopy = isBrowser && "clipboard" in navigator;
   const canShare = isBrowser && "share" in navigator;
 
+  const buttonType: "share" | "copy" | "none" = (() => {
+    if (canShare) return "share";
+    if (canCopy) return "copy";
+    return "none";
+  })();
+
   const getUrl = () => {
     if (!isBrowser) throw new Error("Can only get URL on client");
     return `${window.location.href}#${id}`;
@@ -84,12 +89,19 @@ const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
     <>
       <div css={metaStyles}>
         <div css={timeStyles}>
-          {canCopy && (
-            <RiFileCopyLine css={selectableStyles} onClick={copyLink} />
-          )}
-          {canShare && (
-            <RiShareLine css={selectableStyles} onClick={shareLink} />
-          )}
+          <span
+            css={css`
+              margin-right: ${space[2]}px;
+              vertical-align: middle;
+            `}
+          >
+            {buttonType == "copy" && (
+              <RiFileCopyLine css={selectableStyles} onClick={copyLink} />
+            )}
+            {buttonType == "share" && (
+              <RiShareLine css={selectableStyles} onClick={shareLink} />
+            )}
+          </span>
           {tinyRelative(createdAt, true)}
         </div>
         <div css={authorStyles}>
