@@ -55,9 +55,8 @@ const LivePage: FunctionComponent<LivePageProps> = ({
             margin-top: ${space[3]}px;
             margin-bottom: ${space[4]}px;
           `}
-        >
-          Student Elections 2021
-        </div>
+          dangerouslySetInnerHTML={{ __html: event.title }}
+        />
         {event.subtitle != null && (
           <div dangerouslySetInnerHTML={{ __html: event.subtitle }} />
         )}
