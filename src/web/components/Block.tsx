@@ -30,6 +30,10 @@ const gridStyles = (columns: number, rows: number) => css`
   grid-template-rows: repeat(${rows - 1}, minmax(0, auto)) minmax(0, 1fr);
   column-gap: ${space[5]}px;
   row-gap: ${space[6]}px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(${Math.min(columns, 2)}, minmax(0, 1fr));
+  }
 `;
 
 const titleStyles = css`

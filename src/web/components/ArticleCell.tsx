@@ -58,9 +58,19 @@ const imageStyles = css`
   object-position: center;
 `;
 
+const gradientContainerStyles = css`
+  position: relative;
+  margin-bottom: -${space[4]}px;
+
+  @media (max-width: 800px) {
+    max-height: 140px;
+    overflow: hidden;
+  }
+`;
+
 const textStyles = css`
   margin-top: ${space[4]}px;
-  position: relative;
+  flex: 1 0;
 `;
 
 const textOverlay = css`
@@ -73,10 +83,20 @@ const textOverlay = css`
     to bottom,
     transparent,
     transparent 35%,
-    white 90%,
+    white 86%,
     white
   );
   pointer-events: none;
+
+  @media (max-width: 800px) {
+    background-image: linear-gradient(
+      to bottom,
+      transparent,
+      transparent 55%,
+      white 90%,
+      white
+    );
+  }
 `;
 
 const shouldShowSubtitle = (type: ArticleCellType): boolean => {
@@ -150,12 +170,12 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
 
       {text != null &&
         (clipText ? (
-          <div css={textStyles}>
+          <div css={[textStyles, gradientContainerStyles]}>
             <div dangerouslySetInnerHTML={{ __html: text }} />
             <div css={textOverlay}></div>
           </div>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: text }} />
+          <div css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />
         ))}
     </div>
   );

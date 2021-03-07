@@ -16,7 +16,14 @@ function loadManifest(): { [entrypoint: string]: string } {
   return manifest;
 }
 
-const manifest = loadManifest();
+const cachedManifest = loadManifest();
+
+const manifest = () => {
+  if (process.env.NODE_ENV == "production") {
+    return cachedManifest;
+  }
+  return loadManifest();
+};
 
 export interface PageProps {
   title?: string;
@@ -60,8 +67,8 @@ const Page: FunctionComponent<PageProps> = ({
           )}
         {entrypoint != null && (
           <>
-            <script src={manifest["commons.js"]} defer></script>
-            <script src={manifest[entrypoint]} defer></script>
+            <script src={manifest()["commons.js"]} defer></script>
+            <script src={manifest()[entrypoint]} defer></script>
           </>
         )}
         <script

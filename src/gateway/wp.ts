@@ -136,7 +136,7 @@ function createImageUrl(file: string): string {
 
 function processExcerpt(raw: string): string {
   // Remove the [...] from the end of excerpts
-  return raw.replace("[&hellip;]", "");
+  return raw.replace("[&hellip;]", "").trim();
 }
 
 export async function getFeaturedArticles(
@@ -208,9 +208,9 @@ export async function getSectionArticles(
       articles.map((article) => [article.slug, new Date(article.dateGmt)])
     );
     const dedupedKeys = [...new Set(Object.keys(articleDates))];
-    const orderedKeys = dedupedKeys.sort(
-      (a, b) => articleDates[a].valueOf() - articleDates[b].valueOf()
-    );
+    const orderedKeys = dedupedKeys
+      .sort((a, b) => articleDates[a].valueOf() - articleDates[b].valueOf())
+      .slice(0, 5);
 
     return orderedKeys
       .map((key) => articles.find((article) => article.slug == key))

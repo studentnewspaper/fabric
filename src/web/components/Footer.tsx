@@ -121,19 +121,32 @@ const Footer: FunctionComponent<FooterProps> = ({ ...props }) => {
         <a href="#">Advertising</a>
       </FooterSection>
       <div css={socialsContainerStyles}>
-        <a href="https://www.instagram.com/studentnewspaper" target="__blank">
+        <a
+          href="https://www.instagram.com/studentnewspaper"
+          target="__blank"
+          title="Instagram"
+        >
           <RiInstagramLine />
         </a>
-        <a href="https://www.facebook.com/TheStudentNewspaper" target="__blank">
+        <a
+          href="https://www.facebook.com/TheStudentNewspaper"
+          target="__blank"
+          title="Facebook"
+        >
           <RiFacebookBoxLine />
         </a>
         <a
           href="https://www.linkedin.com/company/the-student-newspaper-"
           target="__blank"
+          title="LinkedIn"
         >
           <RiLinkedinLine />
         </a>
-        <a href="https://twitter.com/TheStudentPaper" target="__blank">
+        <a
+          href="https://twitter.com/TheStudentPaper"
+          target="__blank"
+          title="Twitter"
+        >
           <RiTwitterLine />
         </a>
       </div>
