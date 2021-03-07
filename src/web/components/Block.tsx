@@ -8,11 +8,14 @@ import {
   letterSpacings,
   space,
 } from "../design/theme";
+import { text } from "../design/palette";
+import { RiArrowRightLine } from "react-icons/ri";
 
 export interface BlockProps extends PropsOf<"div"> {
   columns: number;
   rows?: number;
   title?: string;
+  titleLink?: string;
   hasTop?: boolean;
 }
 
@@ -45,6 +48,7 @@ const gridTopStyles = css`
 
 const titleStyles = css`
   /* TODO: Export this from typography.ts? */
+  display: block;
   font-family: ${fonts.sans};
   font-size: ${fontSizes.large}rem;
   font-weight: ${fontWeights.bold};
@@ -53,17 +57,42 @@ const titleStyles = css`
   border-bottom: 1px solid ${colours.neutral[300]};
 `;
 
+const linkedTitleStyles = css`
+  text-decoration: none;
+  color: ${text.primary};
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Block: FunctionComponent<BlockProps> = ({
   columns,
   rows = 1,
   title,
+  titleLink,
   children,
   hasTop = true,
   ...props
 }) => {
   return (
     <div css={[containerStyles, hasTop && containerTopStyles]} {...props}>
-      {title != null && <div css={titleStyles}>{title}</div>}
+      {title != null &&
+        (titleLink != null ? (
+          <a css={[titleStyles, linkedTitleStyles]} href={titleLink}>
+            {title}{" "}
+            <RiArrowRightLine
+              css={css`
+                vertical-align: middle;
+                position: relative;
+                bottom: 1px;
+                margin-left: ${space[2]}px;
+              `}
+            />
+          </a>
+        ) : (
+          <div css={titleStyles}>{title}</div>
+        ))}
       <div css={[gridStyles(columns, rows), hasTop && gridTopStyles]}>
         {children}
       </div>

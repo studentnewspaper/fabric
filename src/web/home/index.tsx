@@ -145,7 +145,13 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         <ClientGate>
           {sections.map(({ title, articles }) => {
             return (
-              <Block key={title} title={title} columns={4} rows={2}>
+              <Block
+                key={title}
+                title={title}
+                titleLink={`/section/${title.toLowerCase()}`}
+                columns={4}
+                rows={2}
+              >
                 {articles.map((article, i) => {
                   return (
                     <Wrapper
