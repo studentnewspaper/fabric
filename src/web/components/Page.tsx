@@ -66,6 +66,14 @@ const Page: FunctionComponent<PageProps> = ({
         {prefetchScripts.map((href, i) => (
           <link rel="prefetch" href={manifest()[href]} as="script" />
         ))}
+        {process.env.NODE_ENV == "production" && (
+          <script
+            async
+            defer
+            data-domain="studentnewspaper.org"
+            src="http://analytics.fabric.studentnewspaper.org/js/plausible.js"
+          ></script>
+        )}
       </head>
       <body>
         <div id="root">{children}</div>
