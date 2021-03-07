@@ -1,8 +1,11 @@
 const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { DefinePlugin } = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const mode =
   process.env.NODE_ENV != null ? process.env.NODE_ENV : "development";
+const gzipTest = /\.js$|\.css$/;
 
 const baseConfig = () => ({
   mode,
@@ -38,8 +41,8 @@ const serverConfig = (base) => ({
   entry: "./src/server/index.tsx",
   externals: [
     {
-      fastify: "commonjs2 fastify",
-      "fastify-static": "commonjs2 fastify-static",
+      express: "commonjs2 express",
+      "express-serve-static": "commonjs2 express-serve-static",
     },
   ],
   devtool: false,
@@ -48,6 +51,7 @@ const serverConfig = (base) => ({
     filename: "index.js",
     assetModuleFilename: "../static/[hash][ext][query]",
   },
+  plugins: [new DefinePlugin({ "typeof window": JSON.stringify("undefined") })],
 });
 
 const clientConfig = (base) => ({
@@ -64,7 +68,22 @@ const clientConfig = (base) => ({
     publicPath: "/static/",
     assetModuleFilename: "static/[hash][ext][query]",
   },
-  plugins: [new WebpackManifestPlugin()],
+  plugins: [
+    new DefinePlugin({ "typeof window": JSON.stringify("object") }),
+    mode == "production" &&
+      new CompressionPlugin({
+        algorithm: "gzip",
+        filename: "[path][base].gz",
+        test: gzipTest,
+      }),
+    mode == "production" &&
+      new CompressionPlugin({
+        algorithm: "brotliCompress",
+        filename: "[path][base].br",
+        test: gzipTest,
+      }),
+    new WebpackManifestPlugin(),
+  ].filter((x) => !!x),
   optimization: {
     splitChunks: {
       cacheGroups: {

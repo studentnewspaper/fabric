@@ -1,10 +1,10 @@
-import fastify from "fastify";
+import express from "express";
+import serveCompressed from "express-static-gzip";
+import compression from "compression";
 import { getCellLiveUpdates, getLiveEvent } from "../gateway/live";
 import renderHome from "../web/home/server";
 import renderLive from "../web/live/server";
-import serve from "fastify-static";
 import {
-  Category,
   getFeaturedArticles,
   getSectionArticles,
   sectionDefinitions,
@@ -14,13 +14,13 @@ import Cache from "./cache";
 
 // Partial hydration: https://github.com/preactjs/preact/issues/2364
 
-const server = fastify();
+const server = express();
 const utf = "charset=utf-8";
 const doctype = "<!DOCTYPE html>";
 
-server.addHook("onSend", (request, reply, payload, next) => {
-  reply.header("Cross-Origin-Opener-Policy", "same-origin");
-  // reply.header("Cross-Origin-Embedder-Policy", "require-corp");
+server.use((_req, res, next) => {
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  // res.header("Cross-Origin-Embedder-Policy", "require-corp");
   next();
 });
 
@@ -35,7 +35,7 @@ const sectionCache = new Cache(20 * 60, async (key) => {
     );
   }
 });
-server.get("/", async (req, res) => {
+server.get("/", compression(), async (req, res) => {
   const [
     electionCellUpdates,
     featuredArticles,
@@ -60,11 +60,11 @@ server.get("/", async (req, res) => {
       articles: sections[i],
     })),
   });
-  res.type(`text/html; ${utf}`).send(doctype + html);
+  res.type("html").send(doctype + html);
 });
 
 const liveCache = new Cache(2 * 60, getLiveEvent);
-server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
+server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
   const slug = req.params.slug;
   const event = await liveCache.get(slug);
   if (event == null) {
@@ -76,18 +76,21 @@ server.get<{ Params: { slug: string } }>("/live/:slug", async (req, res) => {
     initialEvent: event,
     firstUpdatedAt: new Date().toISOString(),
   });
-  res.type(`text/html; ${utf}`).send(doctype + html);
+  res.type("html").send(doctype + html);
 });
 
-server.register(serve, {
-  root: join(__dirname, "../static"),
-  prefix: "/static",
-  cacheControl: true,
-  immutable: true,
-  maxAge: "1yr",
-});
+server.use(
+  "/static",
+  serveCompressed(join(__dirname, "../static"), {
+    enableBrotli: true,
+    orderPreference: ["br"],
+    index: false,
+    serveStatic: { cacheControl: true, immutable: true, maxAge: "1yr" },
+  })
+);
 
-server.listen(8000, "0.0.0.0", (err, address) => {
-  if (err) throw err;
-  console.log(`Server listening on ${address}`);
+const port = process.env.PORT ?? 8000;
+
+server.listen(port, () => {
+  console.log(`Server listening on *:${port}`);
 });
