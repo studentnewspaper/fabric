@@ -7,6 +7,7 @@ function serverRender(props: HomePageProps): string {
   return ssr(
     <Page
       entrypoint="home.js"
+      preconnectDomains={[`https://i0.wp.com`]}
       prefetchDocs={[`/live/student-elections-2021`]}
       prefetchScripts={["live.js"]}
     >

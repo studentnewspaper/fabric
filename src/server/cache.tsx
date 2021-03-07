@@ -33,17 +33,19 @@ export default class Cache<T> {
 
     this.getter = getter;
 
-    for (const key of primeKeys) {
-      this.getter(key).then(
-        (data) => {
-          this.store.set(key, data);
-          console.log(`Primed ${key}`);
-        },
-        (err) => {
-          console.error(`Failed to prime ${key}`);
-          console.error(err);
-        }
-      );
+    if (process.env.NODE_ENV == "production") {
+      for (const key of primeKeys) {
+        this.getter(key).then(
+          (data) => {
+            this.store.set(key, data);
+            console.log(`Primed ${key}`);
+          },
+          (err) => {
+            console.error(`Failed to prime ${key}`);
+            console.error(err);
+          }
+        );
+      }
     }
   }
 

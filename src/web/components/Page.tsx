@@ -28,6 +28,7 @@ export const manifest = () => {
 export interface PageProps {
   title?: string;
   entrypoint?: string;
+  preconnectDomains?: string[];
   prefetchDocs?: string[];
   prefetchScripts?: string[];
 }
@@ -36,6 +37,7 @@ const Page: FunctionComponent<PageProps> = ({
   title,
   entrypoint,
   children,
+  preconnectDomains = [],
   prefetchDocs = [],
   prefetchScripts = [],
 }) => {
@@ -45,6 +47,9 @@ const Page: FunctionComponent<PageProps> = ({
         <title>{title && `${title} - `}The Student</title>
         <link rel="stylesheet" href={`/${resetUrl}`} />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
+        {preconnectDomains.map((domain) => (
+          <link rel="preconnect" href={domain} crossOrigin="" />
+        ))}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=swap"
           rel="stylesheet"
@@ -55,7 +60,7 @@ const Page: FunctionComponent<PageProps> = ({
           }}
         ></style>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {prefetchDocs.map((href, i) => (
+        {prefetchDocs.map((href) => (
           <link rel="prefetch" href={href} as="document" />
         ))}
         {prefetchScripts.map((href, i) => (
