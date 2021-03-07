@@ -71,7 +71,7 @@ const Page: FunctionComponent<PageProps> = ({
             async
             defer
             data-domain="studentnewspaper.org"
-            src="http://analytics.fabric.studentnewspaper.org/js/plausible.js"
+            src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
           ></script>
         )}
       </head>
