@@ -128,8 +128,8 @@ type SectionResponse = {
 const url = `https://cms.studentnewspaper.org/graphql`;
 
 function createImageUrl(file: string): string {
-  const maxWidth = 1000;
-  const maxHeight = 1000;
+  const maxWidth = 500;
+  const maxHeight = 500;
   return `https://i0.wp.com/cms.studentnewspaper.org/wp-content/uploads/${file}?fit=${maxWidth},${maxHeight}&ssl=1&ulb=true&strip=all`;
   // return `https://cms.studentnewspaper.org/wp-content/uploads/${file}`;
 }
