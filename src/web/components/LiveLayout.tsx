@@ -24,6 +24,11 @@ const dividerStyles = css`
   height: 1px;
   background-color: ${colours.neutral[400]};
   width: 65%;
+
+  @media (max-width: 800px) {
+    margin: ${space[8]}px 0;
+    width: 100%;
+  }
 `;
 
 const LiveLayout: FunctionComponent<LiveLayoutProps> = ({ updates }) => {
