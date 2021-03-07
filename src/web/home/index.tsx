@@ -68,15 +68,13 @@ const HomePage: FunctionComponent<HomePageProps> = ({
   return (
     <>
       <Header />
-      <Container grid={1}>
-        <Block
-          columns={6}
-          rows={2}
-          css={css`
-            border-top: none;
-            margin-top: ${space[6]}px;
-          `}
-        >
+      <Container
+        grid={1}
+        css={css`
+          margin: ${space[8]}px 0;
+        `}
+      >
+        <Block columns={6} rows={2} hasTop={false}>
           <Wrapper columns={3} rows={2}>
             <ArticleCell
               title="Campaigning underway for Student Elections"
@@ -178,11 +176,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         </ClientGate>
       </Container>
       <ClientGate>
-        <Footer
-          css={css`
-            margin-top: ${space[9]}px;
-          `}
-        />
+        <Footer />
       </ClientGate>
     </>
   );

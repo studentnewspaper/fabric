@@ -36,6 +36,7 @@ export default class Cache<T> {
       return cachedValue;
     }
 
+    console.log(`Cache miss on ${key}`);
     const data = await this.getter(key);
     this.store.set(key, data);
     return data;

@@ -45,7 +45,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
       <Header />
       <Container
         css={css`
-          margin: ${space[9]}px 0;
+          margin: ${space[8]}px 0;
         `}
       >
         <LiveBadge />
@@ -67,6 +67,13 @@ const LivePage: FunctionComponent<LivePageProps> = ({
             grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
             column-gap: ${space[6]}px;
             margin-top: ${space[8]}px;
+
+            @media (max-width: 800px) {
+              grid-template-columns: minmax(0, 1fr);
+              column-gap: 0;
+              row-gap: ${space[8]}px;
+              margin-top: ${space[7]}px;
+            }
           `}
         >
           <LiveLayout
@@ -87,6 +94,14 @@ const LivePage: FunctionComponent<LivePageProps> = ({
               border-left: 1px solid ${colours.neutral[200]};
               padding-left: ${space[6]}px;
               min-height: 250px;
+
+              @media (max-width: 800px) {
+                grid-row: 1;
+                border-left: none;
+                padding-left: 0;
+                min-height: unset;
+                width: 100%;
+              }
             `}
             updates={event.updates
               .filter((update) => update.majorText != null)

@@ -13,6 +13,7 @@ export default {
     columns: 5,
     rows: 1,
     title: null,
+    hasTop: true,
   },
   argTypes: {
     title: {

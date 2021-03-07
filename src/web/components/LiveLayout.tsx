@@ -13,6 +13,10 @@ const containerStyles = css`
   align-items: baseline;
   column-gap: ${space[8]}px;
   row-gap: ${space[8]}px;
+
+  @media (max-width: 800px) {
+    display: block;
+  }
 `;
 
 const dividerStyles = css`

@@ -15,10 +15,15 @@ export interface LiveUpdateProps {
 }
 
 const metaStyles = css`
-  grid-column: 1 / span 1;
   text-align: right;
   font-family: ${fonts.sans};
   align-self: baseline;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    margin-bottom: ${space[2]}px;
+    text-align: left;
+  }
 `;
 
 const timeStyles = css`
@@ -31,6 +36,12 @@ const timeStyles = css`
   justify-content: right;
   gap: ${space[3]}px;
   margin-bottom: ${space[2]}px;
+
+  @media (max-width: 800px) {
+    gap: ${space[2]}px;
+    margin-bottom: ${space[1]}px;
+    justify-content: left;
+  }
 `;
 
 const authorStyles = css`
@@ -72,29 +83,22 @@ const LiveUpdate: FunctionComponent<LiveUpdateProps> = ({
   return (
     <>
       <div css={metaStyles}>
-        <div>
-          <div css={timeStyles}>
-            {canCopy && (
-              <RiFileCopyLine css={selectableStyles} onClick={copyLink} />
-            )}
-            {canShare && (
-              <RiShareLine css={selectableStyles} onClick={shareLink} />
-            )}
-            {tinyRelative(createdAt, true)}
-          </div>
-          <div css={authorStyles}>
-            <a css={authorStyles} href={`/author/${authorSlug}`}>
-              {author}
-            </a>
-          </div>
+        <div css={timeStyles}>
+          {canCopy && (
+            <RiFileCopyLine css={selectableStyles} onClick={copyLink} />
+          )}
+          {canShare && (
+            <RiShareLine css={selectableStyles} onClick={shareLink} />
+          )}
+          {tinyRelative(createdAt, true)}
+        </div>
+        <div css={authorStyles}>
+          <a css={authorStyles} href={`/author/${authorSlug}`}>
+            {author}
+          </a>
         </div>
       </div>
-      <div
-        id={id}
-        css={css`
-          grid-column: 2 / span 1;
-        `}
-      >
+      <div id={id}>
         <RichContent dangerouslySetInnerHTML={{ __html: body }} />
       </div>
     </>

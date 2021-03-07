@@ -18,7 +18,7 @@ function loadManifest(): { [entrypoint: string]: string } {
 
 const cachedManifest = loadManifest();
 
-const manifest = () => {
+export const manifest = () => {
   if (process.env.NODE_ENV == "production") {
     return cachedManifest;
   }
@@ -28,12 +28,16 @@ const manifest = () => {
 export interface PageProps {
   title?: string;
   entrypoint?: string;
+  prefetchDocs?: string[];
+  prefetchScripts?: string[];
 }
 
 const Page: FunctionComponent<PageProps> = ({
   title,
   entrypoint,
   children,
+  prefetchDocs = [],
+  prefetchScripts = [],
 }) => {
   return (
     <html lang="en">
@@ -51,6 +55,12 @@ const Page: FunctionComponent<PageProps> = ({
           }}
         ></style>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {prefetchDocs.map((href, i) => (
+          <link rel="prefetch" href={href} as="document" />
+        ))}
+        {prefetchScripts.map((href, i) => (
+          <link rel="prefetch" href={manifest()[href]} as="script" />
+        ))}
       </head>
       <body>
         <div id="root">{children}</div>
