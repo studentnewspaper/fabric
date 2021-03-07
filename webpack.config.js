@@ -1,8 +1,11 @@
 const path = require("path");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
-const baseConfig = (mode) => ({
-  mode: mode != null ? mode : "development",
+const mode =
+  process.env.NODE_ENV != null ? process.env.NODE_ENV : "development";
+
+const baseConfig = () => ({
+  mode,
   resolve: {
     alias: {
       react: "preact/compat",
@@ -76,7 +79,7 @@ const clientConfig = (base) => ({
 });
 
 module.exports = function (env, argv) {
-  const base = baseConfig(env.NODE_ENV);
-
+  console.log(`Running webpack in ${mode}`);
+  const base = baseConfig();
   return [clientConfig(base), serverConfig(base)];
 };
