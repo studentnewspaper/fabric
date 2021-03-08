@@ -55,7 +55,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
       case NotificationState.NotSupported:
         return null;
       case NotificationState.Denied:
-        return <ToggleButton isDisabled>Notifications denied</ToggleButton>;
+        return <ToggleButton isDisabled>Notifications blocked</ToggleButton>;
       case NotificationState.Initial:
       case NotificationState.Active:
         return (
@@ -63,20 +63,18 @@ const LivePage: FunctionComponent<LivePageProps> = ({
             isToggled={false}
             onToggle={() => enableNotifications()}
           >
-            Subscribe to notifications
+            Subscribe
           </ToggleButton>
         );
       case NotificationState.AwaitingAction:
-        return (
-          <ToggleButton isToggled={false}>Awaiting confirmation</ToggleButton>
-        );
+        return <ToggleButton isToggled={false}>Prompt open</ToggleButton>;
       case NotificationState.Subscribed:
         return (
           <ToggleButton
             isToggled={true}
             onToggle={() => disableNotifications()}
           >
-            Unsubscribe from notifications
+            Unsubscribe
           </ToggleButton>
         );
       default:
