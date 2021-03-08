@@ -79,8 +79,8 @@ type ArticleResponse = {
   } | null;
 };
 
-const featuredQuery = `query getArticlesByTags($n: Int!) {
-  tag(id: 12, idType: DATABASE_ID) {
+const tagQuery = `query getArticlesByTags($tag: ID!, $n: Int!) {
+  tag(id: $tag, idType: DATABASE_ID) {
     posts(first: $n, where: { status: PUBLISH }) {
       nodes {
         ${articleStub}
@@ -89,7 +89,7 @@ const featuredQuery = `query getArticlesByTags($n: Int!) {
   }
 }`;
 
-type FeaturedResponse = {
+type TagResponse = {
   data: {
     tag: {
       posts: {
@@ -139,17 +139,18 @@ function processExcerpt(raw: string): string {
   return raw.replace("[&hellip;]", "").trim();
 }
 
-export async function getFeaturedArticles(
+export async function getTagArticles(
+  tag: number,
   n: number
 ): Promise<ArticleStub[] | null> {
   try {
     const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify({ query: featuredQuery, variables: { n } }),
+      body: JSON.stringify({ query: tagQuery, variables: { tag, n } }),
       headers: { "Content-Type": "application/json" },
     });
 
-    const body: FeaturedResponse = await response.json();
+    const body: TagResponse = await response.json();
     if (response.status != 200 || body?.data == null) {
       throw new Error(
         `Error getting featured articles\n${JSON.stringify(body, null, 2)}`
@@ -179,6 +180,10 @@ export async function getFeaturedArticles(
     console.error(err);
     return null;
   }
+}
+
+export async function getFeaturedArticles(n: number) {
+  return getTagArticles(12, n);
 }
 
 export async function getSectionArticles(

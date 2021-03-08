@@ -17,6 +17,7 @@ export interface HomePageProps {
     updates: LiveUpdateStub[] | null;
     updatedAt: string;
   };
+  interviews: ArticleStub[] | null;
   featuredArticles: ArticleStub[] | null;
   sections: { title: string; articles: ArticleStub[] }[];
 }
@@ -42,6 +43,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
   initialLiveElectionCell,
   featuredArticles,
   sections,
+  interviews,
 }) => {
   const [electionCellUpdates, setElectionCellUpdates] = useState(
     initialLiveElectionCell.updates
@@ -73,10 +75,10 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           margin: ${space[8]}px 0;
         `}
       >
-        <Block columns={6} rows={2} hasTop={false}>
-          <Wrapper columns={3} rows={2}>
+        <Block columns={6} hasTop={false}>
+          <Wrapper columns={3}>
             <ArticleCell
-              title="Campaigning underway for Student Elections"
+              title="Voting underway in Student Elections"
               subtitle="30 students are standing for five sabbatical positions"
               text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting opens on the <b>8th of March</b>, and we'll be bringing you the latest all the way."
               isLive
@@ -84,7 +86,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               clipText={false}
             />
           </Wrapper>
-          <Wrapper columns={1} rows={2}>
+          <Wrapper columns={1}>
             <ArticleCell
               title="Read the manifestos"
               text="You can find all the candidates standing for election on the EUSA site. See what they've pledged in their manifestos."
@@ -94,7 +96,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               clipText={false}
             />
           </Wrapper>
-          <Wrapper columns={2} rows={2}>
+          <Wrapper columns={2}>
             {electionCellUpdates != null && (
               <UpdatesCell
                 updates={electionCellUpdates.map((update) => ({
@@ -109,14 +111,22 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             )}
             {electionCellUpdates == null && <p>Problem loading updates</p>}
           </Wrapper>
-          {/* <Wrapper columns={1}>
-            <ArticleCell
-              title="Politics, breaking"
-              text="It has never been more crucial that our voices are heard."
-              link="/article/student-politics-is-dying-and-this-election-could-be-the-final-blow"
-              type={ArticleCellType.Compact}
-            />
-          </Wrapper> */}
+        </Block>
+        <Block columns={5} title="Presidential candidate interviews">
+          {interviews != null &&
+            interviews.map((interview) => {
+              return (
+                <Wrapper columns={1}>
+                  <ArticleCell
+                    title={interview.title}
+                    imageUrl={interview.imageUrl}
+                    imageAlt={interview.imageAlt}
+                    link={`/article/${interview.slug}`}
+                    type={ArticleCellType.Compact}
+                  />
+                </Wrapper>
+              );
+            })}
         </Block>
         <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (

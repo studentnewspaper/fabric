@@ -7,6 +7,7 @@ import renderLive from "../web/live/server";
 import {
   getFeaturedArticles,
   getSectionArticles,
+  getTagArticles,
   sectionDefinitions,
 } from "../gateway/wp";
 import { join } from "path";
@@ -33,6 +34,9 @@ const sectionCache = new Cache(
     if (key == "featured") {
       return getFeaturedArticles(3);
     }
+    if (key == "election-interviews") {
+      return getTagArticles(13797, 6);
+    }
     if (key in sectionDefinitions) {
       return getSectionArticles(
         sectionDefinitions[key as keyof typeof sectionDefinitions]
@@ -45,11 +49,12 @@ server.get("/", compression(), async (req, res) => {
   const [
     electionCellUpdates,
     featuredArticles,
+    interviews,
     ...sections
   ] = await Promise.all([
     electionCellCache.get(`student-elections-2021`),
-    // TODO: Type check these keys
     sectionCache.get("featured"),
+    sectionCache.get("election-interviews"),
     ...Object.entries(sectionDefinitions).map(([title]) =>
       sectionCache.get(title)
     ),
@@ -60,6 +65,7 @@ server.get("/", compression(), async (req, res) => {
       updates: electionCellUpdates,
       updatedAt: new Date().toISOString(),
     },
+    interviews,
     featuredArticles,
     sections: Object.keys(sectionDefinitions).map((title, i) => ({
       title,
