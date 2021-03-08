@@ -81,10 +81,10 @@ const textOverlay = css`
   right: 0;
   background-image: linear-gradient(
     to bottom,
-    transparent,
-    transparent 35%,
-    white 86%,
-    white
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 1) 86%,
+    rgba(255, 255, 255, 1)
   );
   pointer-events: none;
 
