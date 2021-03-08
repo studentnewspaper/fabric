@@ -124,7 +124,7 @@ export function useNotifications(channel: string): [state: NotificationState, en
 
     await fetch(`${process.env.NOTIFICATION_ORIGIN}/subscribe`, {
       method: "POST",
-      body: JSON.stringify({ channel, device: subscription.toJSON() }),
+      body: JSON.stringify({ channel, device: {endpoint: subscription.endpoint, keys: subscription.toJSON().keys} }),
       headers: {
         "Content-Type": "application/json",
       },
