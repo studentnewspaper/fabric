@@ -63,6 +63,21 @@ server.get("/", compression(), async (req, res) => {
     },
     interviews: [
       {
+        name: "Alfie Garland",
+        slug: "the-student-meets-alfie-garland",
+        imageUrl: createImageUrl(
+          "2021/03/158349541_3629901077079196_8760039522844051971_o-e1615232170644.jpg"
+        ),
+      },
+      {
+        name: "Ellen Macrae",
+        slug:
+          "we-need-a-president-with-experience-ellen-macrae-on-her-re-election-campaign",
+        imageUrl: createImageUrl(
+          "2021/03/candidate-photo2-1-e1615231715976.jpg"
+        ),
+      },
+      {
         name: "Jason Gallagher",
         slug:
           "i-will-turn-up-at-every-msps-house-in-this-country-interview-with-jason-gallagher",
@@ -78,21 +93,8 @@ server.get("/", compression(), async (req, res) => {
       {
         name: "Tom Ely-Corbett",
         slug: "the-student-meets-tom-ely-corbett",
-        imageUrl: createImageUrl("2021/03/Article-Pic-e1615232299438.png"),
-      },
-      {
-        name: "Ellen Macrae",
-        slug:
-          "we-need-a-president-with-experience-ellen-macrae-on-her-re-election-campaign",
         imageUrl: createImageUrl(
-          "2021/03/candidate-photo2-1-e1615231715976.jpg"
-        ),
-      },
-      {
-        name: "Alfie Garland",
-        slug: "the-student-meets-alfie-garland",
-        imageUrl: createImageUrl(
-          "2021/03/158349541_3629901077079196_8760039522844051971_o-e1615232170644.jpg"
+          "2021/03/158747032_2393387444138204_5710872180779573610_n-e1615232704700.jpg"
         ),
       },
     ],
