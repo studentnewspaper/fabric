@@ -11,6 +11,8 @@ import LiveBadge from "../components/LiveBadge";
 import { useEffect, useState } from "preact/hooks";
 import UpdatesCell, { UpdatesCellType } from "../components/UpdatesCell";
 import { colours, space } from "../design/theme";
+import ToggleButton, { ToggleButtonProps } from "../components/ToggleButton";
+import { useNotifications, NotificationState } from "../hooks/notification";
 
 export interface LivePageProps {
   slug: string;
@@ -40,12 +42,55 @@ const LivePage: FunctionComponent<LivePageProps> = ({
     return () => clearInterval(interval);
   }, []);
 
+  const [
+    notificationState,
+    enableNotifications,
+    disableNotifications,
+  ] = useNotifications(slug);
+
+  const notificationButton = ((): JSX.Element | null => {
+    switch (notificationState) {
+      case NotificationState.Loading:
+        return <ToggleButton isDisabled>Loading</ToggleButton>;
+      case NotificationState.NotSupported:
+        return null;
+      case NotificationState.Denied:
+        return <ToggleButton isDisabled>Notifications denied</ToggleButton>;
+      case NotificationState.Initial:
+      case NotificationState.Active:
+        return (
+          <ToggleButton
+            isToggled={false}
+            onToggle={() => enableNotifications()}
+          >
+            Subscribe to notifications
+          </ToggleButton>
+        );
+      case NotificationState.AwaitingAction:
+        return (
+          <ToggleButton isToggled={false}>Awaiting confirmation</ToggleButton>
+        );
+      case NotificationState.Subscribed:
+        return (
+          <ToggleButton
+            isToggled={true}
+            onToggle={() => disableNotifications()}
+          >
+            Unsubscribe from notifications
+          </ToggleButton>
+        );
+      default:
+        throw new Error("Invalid state");
+    }
+  })();
+
   return (
     <>
       <Header />
       <Container
         css={css`
-          margin: ${space[8]}px 0;
+          margin-top: ${space[8]}px;
+          margin-bottom: ${space[10]}px;
         `}
       >
         <LiveBadge />
@@ -63,8 +108,8 @@ const LivePage: FunctionComponent<LivePageProps> = ({
         <div
           css={css`
             display: grid;
-            grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
-            column-gap: ${space[6]}px;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
+            column-gap: ${space[4]}px;
             margin-top: ${space[8]}px;
 
             @media (max-width: 800px) {
@@ -75,6 +120,44 @@ const LivePage: FunctionComponent<LivePageProps> = ({
             }
           `}
         >
+          <div
+            css={css`
+              /* border-left: 1px solid ${colours.neutral[200]}; */
+              /* padding-left: ${space[6]}px; */
+
+              @media (max-width: 800px) {
+                grid-row: 1;
+                border-left: none;
+                padding-left: 0;
+                min-height: unset;
+                width: 100%;
+              }
+            `}
+          >
+            {notificationButton != null && (
+              <div
+                css={css`
+                  margin-bottom: ${space[6]}px;
+                `}
+              >
+                {notificationButton}
+              </div>
+            )}
+            <UpdatesCell
+              updates={event.updates
+                .filter((update) => update.majorText != null)
+                .slice(0, 10)
+                .map((update) => ({
+                  id: update.id,
+                  text: update.majorText ?? "Update",
+                  timestamp: new Date(update.createdAt),
+                  link: `#${update.id}`,
+                }))}
+              type={UpdatesCellType.Stacked}
+              updatedAt={updatedAt}
+              updateFrequency="2m"
+            />
+          </div>
           <LiveLayout
             updates={event.updates.map((update) => {
               return (
@@ -87,33 +170,6 @@ const LivePage: FunctionComponent<LivePageProps> = ({
                 />
               );
             })}
-          />
-          <UpdatesCell
-            css={css`
-              border-left: 1px solid ${colours.neutral[200]};
-              padding-left: ${space[6]}px;
-              min-height: 250px;
-
-              @media (max-width: 800px) {
-                grid-row: 1;
-                border-left: none;
-                padding-left: 0;
-                min-height: unset;
-                width: 100%;
-              }
-            `}
-            updates={event.updates
-              .filter((update) => update.majorText != null)
-              .slice(0, 10)
-              .map((update) => ({
-                id: update.id,
-                text: update.majorText ?? "Update",
-                timestamp: new Date(update.createdAt),
-                link: `#${update.id}`,
-              }))}
-            type={UpdatesCellType.Stacked}
-            updatedAt={updatedAt}
-            updateFrequency="2m"
           />
         </div>
       </Container>

@@ -29,7 +29,7 @@ const stackedTimeStyles = css`
   text-align: left;
 
   :not(:first-of-type) {
-    margin-top: ${space[3]}px;
+    margin-top: ${space[4]}px;
   }
 `;
 

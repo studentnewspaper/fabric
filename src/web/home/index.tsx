@@ -54,7 +54,6 @@ const HomePage: FunctionComponent<HomePageProps> = ({
     const updatedAt = new Date();
     setElectionCellUpdatedAt(updatedAt);
     setElectionCellUpdates(updates);
-    console.log(`Election cell updated at ${updatedAt.toString()}`);
   }
 
   useEffect(() => {

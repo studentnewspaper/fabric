@@ -62,6 +62,7 @@ const clientConfig = (base) => ({
     home: "./src/web/home/client.tsx",
     live: "./src/web/live/client.tsx",
   },
+  devtool: mode == "development" ? "source-map" : false,
   output: {
     path: path.resolve(__dirname, "build/static"),
     filename: "[name].[contenthash].js",
@@ -69,7 +70,18 @@ const clientConfig = (base) => ({
     assetModuleFilename: "static/[hash][ext][query]",
   },
   plugins: [
-    new DefinePlugin({ "typeof window": JSON.stringify("object") }),
+    new DefinePlugin({
+      "typeof window": JSON.stringify("object"),
+      "process.env.NODE_ENV": JSON.stringify(mode),
+      "process.env.VAPID_PUBLIC": JSON.stringify(
+        "BPCowe_Dpo9VjGsjuwI_r-XwSPXm2jjuM5ffK8hKMZZ-b0bQ9JICpDI3KUk_eQ393JjPy5msPniG-ZKiH1bjAhc"
+      ),
+      "process.env.NOTIFICATION_ORIGIN": JSON.stringify(
+        mode == "production"
+          ? "https://notifications.fabric.studentnewspaper.org"
+          : "http://localhost:8001"
+      ),
+    }),
     mode == "production" &&
       new CompressionPlugin({
         algorithm: "gzip",

@@ -1,7 +1,7 @@
 import { css, keyframes, PropsOf } from "@emotion/react";
 import { FunctionComponent } from "preact";
 import { bg, text } from "../design/palette";
-import { fonts, fontSizes } from "../design/theme";
+import { boxShadows, fonts, fontSizes } from "../design/theme";
 
 export enum LiveBadgeType {
   Solid = "solid",
@@ -26,9 +26,10 @@ const badgeStyles = css`
 
 const solidBadgeStyles = css`
   padding: 5px 8px;
-  border-radius: 3px;
+  border-radius: 4px;
   color: ${text.liveInverse};
   background-color: ${bg.live};
+  box-shadow: ${boxShadows.sm};
 `;
 
 const transparentBadgeStyles = css`

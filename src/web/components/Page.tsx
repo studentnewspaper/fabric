@@ -99,6 +99,17 @@ const Page: FunctionComponent<PageProps> = ({
             __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,
           }}
         ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js');
+          });
+        }        
+        `,
+          }}
+        ></script>
       </body>
     </html>
   );
