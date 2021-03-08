@@ -17,7 +17,11 @@ export interface HomePageProps {
     updates: LiveUpdateStub[] | null;
     updatedAt: string;
   };
-  interviews: ArticleStub[] | null;
+  interviews: {
+    name: string;
+    slug: string;
+    imageUrl: string;
+  }[];
   featuredArticles: ArticleStub[] | null;
   sections: { title: string; articles: ArticleStub[] }[];
 }
@@ -118,9 +122,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               return (
                 <Wrapper columns={1}>
                   <ArticleCell
-                    title={interview.title}
+                    title={interview.name}
                     imageUrl={interview.imageUrl}
-                    imageAlt={interview.imageAlt}
+                    imageAlt=""
                     link={`/article/${interview.slug}`}
                     type={ArticleCellType.Compact}
                   />

@@ -5,6 +5,7 @@ import { getCellLiveUpdates, getLiveEvent } from "../gateway/live";
 import renderHome from "../web/home/server";
 import renderLive from "../web/live/server";
 import {
+  createImageUrl,
   getFeaturedArticles,
   getSectionArticles,
   getTagArticles,
@@ -34,9 +35,6 @@ const sectionCache = new Cache(
     if (key == "featured") {
       return getFeaturedArticles(3);
     }
-    if (key == "election-interviews") {
-      return getTagArticles(13797, 6);
-    }
     if (key in sectionDefinitions) {
       return getSectionArticles(
         sectionDefinitions[key as keyof typeof sectionDefinitions]
@@ -49,12 +47,10 @@ server.get("/", compression(), async (req, res) => {
   const [
     electionCellUpdates,
     featuredArticles,
-    interviews,
     ...sections
   ] = await Promise.all([
     electionCellCache.get(`student-elections-2021`),
     sectionCache.get("featured"),
-    sectionCache.get("election-interviews"),
     ...Object.entries(sectionDefinitions).map(([title]) =>
       sectionCache.get(title)
     ),
@@ -65,7 +61,41 @@ server.get("/", compression(), async (req, res) => {
       updates: electionCellUpdates,
       updatedAt: new Date().toISOString(),
     },
-    interviews,
+    interviews: [
+      {
+        name: "Jason Gallagher",
+        slug:
+          "i-will-turn-up-at-every-msps-house-in-this-country-interview-with-jason-gallagher",
+        imageUrl: createImageUrl("2021/03/image1-1-e1615231599166.jpeg"),
+      },
+      {
+        name: "Rakshit Dalal",
+        slug: "the-student-meets-rakshit-dalal",
+        imageUrl: createImageUrl(
+          "2021/03/MicrosoftTeams-image-1-scaled-e1615231440127.jpg"
+        ),
+      },
+      {
+        name: "Tom Ely-Corbett",
+        slug: "the-student-meets-tom-ely-corbett",
+        imageUrl: createImageUrl("2021/03/Article-Pic-e1615232299438.png"),
+      },
+      {
+        name: "Ellen Macrae",
+        slug:
+          "we-need-a-president-with-experience-ellen-macrae-on-her-re-election-campaign",
+        imageUrl: createImageUrl(
+          "2021/03/candidate-photo2-1-e1615231715976.jpg"
+        ),
+      },
+      {
+        name: "Alfie Garland",
+        slug: "the-student-meets-alfie-garland",
+        imageUrl: createImageUrl(
+          "2021/03/158349541_3629901077079196_8760039522844051971_o-e1615232170644.jpg"
+        ),
+      },
+    ],
     featuredArticles,
     sections: Object.keys(sectionDefinitions).map((title, i) => ({
       title,

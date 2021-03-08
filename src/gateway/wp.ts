@@ -127,10 +127,10 @@ type SectionResponse = {
 
 const url = `https://cms.studentnewspaper.org/graphql`;
 
-function createImageUrl(file: string): string {
-  const maxWidth = 500;
-  const maxHeight = 500;
-  return `https://i0.wp.com/cms.studentnewspaper.org/wp-content/uploads/${file}?fit=${maxWidth},${maxHeight}&ssl=1&ulb=true&strip=all`;
+export function createImageUrl(file: string): string {
+  const targetWidth = 400;
+  const targetHeight = Math.ceil(targetWidth * (9 / 16));
+  return `https://i0.wp.com/cms.studentnewspaper.org/wp-content/uploads/${file}?fit=${targetWidth},${targetHeight}&ssl=1&ulb=true&strip=all`;
   // return `https://cms.studentnewspaper.org/wp-content/uploads/${file}`;
 }
 
