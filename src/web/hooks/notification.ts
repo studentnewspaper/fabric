@@ -122,13 +122,19 @@ export function useNotifications(channel: string): [state: NotificationState, en
       }
     }
 
-    await fetch(`${process.env.NOTIFICATION_ORIGIN}/subscribe`, {
+    const response = await fetch(`${process.env.NOTIFICATION_ORIGIN}/subscribe`, {
       method: "POST",
       body: JSON.stringify({ channel, device: {endpoint: subscription.endpoint, keys: subscription.toJSON().keys} }),
       headers: {
         "Content-Type": "application/json",
       },
     });
+    if(response.status != 200) {
+      console.error(`Could not register subscription`);
+      alert("We're having trouble registering this subscription. Oops! Please try again in a bit or email digital@studentnewspaper.org");
+      setState(NotificationState.Active);
+      return;
+    }
     localStorage.setItem(
       localStorageKey,
       subscription.endpoint
