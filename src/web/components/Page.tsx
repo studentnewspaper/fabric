@@ -67,12 +67,19 @@ const Page: FunctionComponent<PageProps> = ({
           <link rel="prefetch" href={manifest()[href]} as="script" />
         ))}
         {process.env.NODE_ENV == "production" && (
-          <script
-            async
-            defer
-            data-domain="studentnewspaper.org"
-            src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
-          ></script>
+          <>
+            <script
+              async
+              defer
+              data-domain="studentnewspaper.org"
+              src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
+            ></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>`,
+              }}
+            ></script>
+          </>
         )}
       </head>
       <body>

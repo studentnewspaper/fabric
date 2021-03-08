@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect,  useState } from "preact/hooks";
 import { fetch } from "cross-fetch";
 
 export enum NotificationState {
@@ -140,6 +140,10 @@ export function useNotifications(channel: string): [state: NotificationState, en
       subscription.endpoint
     );
     setState(NotificationState.Subscribed);
+    
+    if('plausible' in window) {
+      window.plausible('Push enabled');
+    }
   }
 
   async function disable() {

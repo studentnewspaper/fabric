@@ -11,6 +11,6 @@
     "target": "ESNext",
     "module": "ESNext",
     "resolveJsonModule": true,
-    "types": ["@emotion/react", "node"]
+    "typeRoots": ["./node_modules/@types", "./typings"]
   }
 }
