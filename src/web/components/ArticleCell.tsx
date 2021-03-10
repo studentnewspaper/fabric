@@ -141,7 +141,12 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
           `}
         >
           <div css={imageContainerStyles}>
-            <img css={imageStyles} src={imageUrl} alt={imageAlt} />
+            <img
+              css={imageStyles}
+              src={imageUrl}
+              alt={imageAlt}
+              crossOrigin="anonymous"
+            />
           </div>
         </AspectRatioBox>
       )}

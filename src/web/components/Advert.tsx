@@ -50,6 +50,7 @@ const Advert: FunctionComponent<AdvertProps> = ({
           alt={alt}
           width="620"
           height="420"
+          crossOrigin="anonymous"
         />
       </picture>
       <div

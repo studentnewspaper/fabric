@@ -38,6 +38,7 @@ const styles = css`
   }
 `;
 
+// TODO: Make sure images have cross-origin where possible for caching purposes
 const RichContent: FunctionComponent<RichContentProps> = ({ ...props }) => {
   return <div css={styles} {...props} />;
 };
