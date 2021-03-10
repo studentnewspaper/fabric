@@ -46,13 +46,18 @@ const Page: FunctionComponent<PageProps> = ({
       <head>
         <title>{title && `${title} - `}The Student</title>
         <link rel="stylesheet" href={`/${resetUrl}`} />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         {preconnectDomains.map((domain) => (
-          <link rel="preconnect" href={domain} crossOrigin="" />
+          <link rel="preconnect" href={domain} crossOrigin="anonymous" />
         ))}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=fallback"
           rel="stylesheet"
+          crossOrigin="anonymous"
         />
         <style
           dangerouslySetInnerHTML={{
@@ -61,10 +66,20 @@ const Page: FunctionComponent<PageProps> = ({
         ></style>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {prefetchDocs.map((href) => (
-          <link rel="prefetch" href={href} as="document" />
+          <link
+            rel="prefetch"
+            href={href}
+            as="document"
+            crossOrigin="anonymous"
+          />
         ))}
         {prefetchScripts.map((href, i) => (
-          <link rel="prefetch" href={manifest()[href]} as="script" />
+          <link
+            rel="prefetch"
+            href={manifest()[href]}
+            as="script"
+            crossOrigin="anonymous"
+          />
         ))}
         {process.env.NODE_ENV == "production" && (
           <>
@@ -73,6 +88,7 @@ const Page: FunctionComponent<PageProps> = ({
               defer
               data-domain="studentnewspaper.org"
               src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
+              crossOrigin="anonymous"
             ></script>
             <script
               dangerouslySetInnerHTML={{
@@ -112,7 +128,9 @@ const Page: FunctionComponent<PageProps> = ({
             __html: `
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
-            navigator.serviceWorker.register('/sw.js');
+            navigator.serviceWorker.register('/sw.js').then(() => {
+              document.body.dispatchEvent(new CustomEvent('sw-init'));
+            });
           });
         }        
         `,

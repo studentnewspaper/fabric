@@ -1,7 +1,8 @@
 const path = require("path");
-const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const { DefinePlugin } = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { InjectManifest } = require("workbox-webpack-plugin");
 
 const mode =
   process.env.NODE_ENV != null ? process.env.NODE_ENV : "development";
@@ -95,6 +96,8 @@ const clientConfig = (base) => ({
         test: gzipTest,
       }),
     new WebpackManifestPlugin(),
+    mode == "production" &&
+      new InjectManifest({ swSrc: "./src/web/service-worker.ts" }),
   ].filter((x) => !!x),
   optimization: {
     splitChunks: {

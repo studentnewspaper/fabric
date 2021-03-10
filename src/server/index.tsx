@@ -123,9 +123,18 @@ server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
   res.type("html").send(doctype + html);
 });
 
+const staticDir = join(__dirname, "../static");
+
+server.get("/service-worker.js", (req, res) => {
+  res.sendFile("service-worker.js", {
+    root: staticDir,
+    headers: { "Cache-Control": "max-age=0" },
+  });
+});
+
 server.use(
   "/static",
-  serveCompressed(join(__dirname, "../static"), {
+  serveCompressed(staticDir, {
     enableBrotli: true,
     orderPreference: ["br"],
     index: false,

@@ -29,63 +29,72 @@ export function useNotifications(channel: string): [state: NotificationState, en
 
   const localStorageKey = `subscription-${channel}`;
 
+  async function determineState() {
+    console.log(`Determining notification state`);
+    const supported = await isSupported();
+    if (!supported) {
+      setState(NotificationState.NotSupported);
+      return;
+    }
+
+    const serviceWorker = await navigator.serviceWorker.getRegistration();
+    if (serviceWorker == null) {
+      localStorage.removeItem(localStorageKey);
+      setState(NotificationState.NotSupported);
+      return;
+    }
+
+    if (Notification.permission == "denied") {
+      localStorage.removeItem(localStorageKey);
+      setState(NotificationState.Denied);
+      return;
+    }
+
+    if (Notification.permission == "default") {
+      localStorage.removeItem(localStorageKey);
+      setState(NotificationState.Initial);
+      return;
+    }
+
+    // We know we can send notifications... does that mean there's a subscription already?
+    const subscription = await serviceWorker.pushManager.getSubscription();
+    if (!subscription) {
+      localStorage.removeItem(localStorageKey);
+      setState(NotificationState.Initial);
+      return;
+    }
+
+    const localStorageEndpoint = localStorage.getItem(localStorageKey)
+    if (localStorageEndpoint != null) {
+      // Make sure this pre-existing subscription refers to this service workers subscription
+      if(localStorageEndpoint == subscription.endpoint) {
+        setState(NotificationState.Subscribed);
+        return;
+      }
+
+      // The subscription has changed this service worker is not going to receive notifications from this endpoint
+      removeEndpoint(localStorageEndpoint);
+      localStorage.removeItem(localStorageKey);
+      // We still have _a_ subscription though, so it's active
+      setState(NotificationState.Active);
+      return;
+    } else {
+      // We probably don't have a subscription to this exact thing
+      setState(NotificationState.Active);
+      return;
+    }
+  }
+
   useEffect(() => {
     // For SSR, state should always be "loading"
     if (typeof window == "undefined") return;
-    (async () => {
-      const supported = await isSupported();
-      if (!supported) {
-        setState(NotificationState.NotSupported);
-        return;
-      }
+    
+    determineState();
+    document.body.addEventListener('sw-init', determineState);
 
-      const serviceWorker = await navigator.serviceWorker.getRegistration();
-      if (serviceWorker == null) {
-        localStorage.removeItem(localStorageKey);
-        setState(NotificationState.NotSupported);
-        return;
-      }
-
-      if (Notification.permission == "denied") {
-        localStorage.removeItem(localStorageKey);
-        setState(NotificationState.Denied);
-        return;
-      }
-
-      if (Notification.permission == "default") {
-        localStorage.removeItem(localStorageKey);
-        setState(NotificationState.Initial);
-        return;
-      }
-
-      // We know we can send notifications... does that mean there's a subscription already?
-      const subscription = await serviceWorker.pushManager.getSubscription();
-      if (!subscription) {
-        localStorage.removeItem(localStorageKey);
-        setState(NotificationState.Initial);
-        return;
-      }
-
-      const localStorageEndpoint = localStorage.getItem(localStorageKey)
-      if (localStorageEndpoint != null) {
-        // Make sure this pre-existing subscription refers to this service workers subscription
-        if(localStorageEndpoint == subscription.endpoint) {
-          setState(NotificationState.Subscribed);
-          return;
-        }
-
-        // The subscription has changed this service worker is not going to receive notifications from this endpoint
-        removeEndpoint(localStorageEndpoint);
-        localStorage.removeItem(localStorageKey);
-        // We still have _a_ subscription though, so it's active
-        setState(NotificationState.Active);
-        return;
-      } else {
-        // We probably don't have a subscription to this exact thing
-        setState(NotificationState.Active);
-        return;
-      }
-    })();
+    return () => {
+      document.body.removeEventListener('sw-init', determineState);
+    }
   }, []);
 
   async function enable() {
@@ -161,8 +170,7 @@ export function useNotifications(channel: string): [state: NotificationState, en
     await removeEndpoint(subscription.endpoint)
     localStorage.removeItem(localStorageKey);
 
-    // Maybe go through the entire state determination function in "useEffect" again?
-    setState(NotificationState.Active);
+    await determineState();
   }
 
   async function removeEndpoint(endpoint: string) {
