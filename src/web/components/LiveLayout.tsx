@@ -45,14 +45,16 @@ const LiveLayout: FunctionComponent<LiveLayoutProps> = ({ updates }) => {
     .flatMap((update) => [<div css={dividerStyles} />, update])
     .slice(1);
 
+  // Array structures as:
+  // 0   1   2   3   4
+  // U   D   U   D   u
+
   return (
     <div css={containerStyles}>
-      {$updates.slice(0, 3)}
-      <div css={dividerStyles} />
+      {$updates.slice(0, 4)}
       <div></div>
       <Advert {...EMERGENCY_AD_PROPS} hideBottomBorder />
-      <div css={dividerStyles} />
-      <ClientGate>{$updates.slice(6)}</ClientGate>
+      <ClientGate>{$updates.slice(3)}</ClientGate>
     </div>
   );
 };
