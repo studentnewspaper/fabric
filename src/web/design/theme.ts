@@ -6,8 +6,8 @@ export const fontSizes = {
 };
 
 export const fonts = {
-  sans: `Inter, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif`,
-  serif: `Literata, Georgia, serif`,
+  sans: `Inter, Segoe UI, Futura, Helvetica, Arial, sans-serif`,
+  serif: `Literata, Big Caslon, Georgia, serif`,
 };
 
 export const lineHeights = { dense: 1.15, base: 1.35, relaxed: 1.5 };

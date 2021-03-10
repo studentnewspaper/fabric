@@ -51,7 +51,7 @@ const Page: FunctionComponent<PageProps> = ({
           <link rel="preconnect" href={domain} crossOrigin="" />
         ))}
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Literata:ital,wght@0,400;0,700;1,400&display=fallback"
           rel="stylesheet"
         />
         <style
