@@ -125,12 +125,15 @@ server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
 
 const staticDir = join(__dirname, "../static");
 
-server.get("/service-worker.js", (req, res) => {
-  res.sendFile("service-worker.js", {
-    root: staticDir,
-    headers: { "Cache-Control": "max-age=0" },
-  });
-});
+server.get(
+  "/service-worker.js",
+  serveCompressed(staticDir, {
+    enableBrotli: true,
+    orderPreference: ["br"],
+    index: false,
+    serveStatic: { cacheControl: true, maxAge: 0 },
+  })
+);
 
 server.use(
   "/static",
