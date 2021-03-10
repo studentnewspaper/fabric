@@ -24,6 +24,18 @@ const styles = css`
   *:not(:last-child) {
     margin-bottom: ${space[4]}px;
   }
+
+  /* TODO: Synchronise with <Quote /> */
+  blockquote {
+    border-left: 1px solid black;
+    padding-top: ${space[2]}px;
+    padding-bottom: ${space[3]}px;
+    padding-left: ${space[6]}px;
+
+    *:not(:last-child) {
+      margin-bottom: ${space[4]}px;
+    }
+  }
 `;
 
 const RichContent: FunctionComponent<RichContentProps> = ({ ...props }) => {
