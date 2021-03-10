@@ -81,6 +81,7 @@ const Page: FunctionComponent<PageProps> = ({
             ></script>
           </>
         )}
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
         <div id="root">{children}</div>
