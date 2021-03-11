@@ -1,10 +1,6 @@
 import { css, PropsOf } from "@emotion/react";
 import { fontWeights, lineHeights, space } from "../design/theme";
-import {
-  generateStyles,
-  headlineFont,
-  subtitleFont,
-} from "../design/typography";
+import { generateStyles, subtitleFont } from "../design/typography";
 import { FunctionComponent } from "preact";
 
 export interface RichContentProps extends PropsOf<"div"> {}

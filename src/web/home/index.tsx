@@ -82,9 +82,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         <Block columns={6} hasTop={false}>
           <Wrapper columns={3}>
             <ArticleCell
-              title="Polls close at 5pm"
-              subtitle="Have your say in the Student Elections 2021"
-              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting closes at <b>5pm today</b>."
+              title="Polls closed; results tomorrow"
+              subtitle="Voting has concluded in the 2021 Student Elections"
+              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Results Night begins at <b>6pm tomorrow</b>."
               isLive
               link="/live/student-elections-2021"
               clipText={false}
@@ -116,7 +116,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             {electionCellUpdates == null && <p>Problem loading updates</p>}
           </Wrapper>
         </Block>
-        <Block columns={5} title="Presidential candidate interviews">
+        {/* <Block columns={5} title="Presidential candidate interviews">
           {interviews != null &&
             interviews.map((interview) => {
               return (
@@ -131,7 +131,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
                 </Wrapper>
               );
             })}
-        </Block>
+        </Block> */}
         <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (
             <p>Couldn't load featured articles</p>
