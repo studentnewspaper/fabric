@@ -214,7 +214,7 @@ export async function getSectionArticles(
     );
     const dedupedKeys = [...new Set(Object.keys(articleDates))];
     const orderedKeys = dedupedKeys
-      .sort((a, b) => articleDates[a].valueOf() - articleDates[b].valueOf())
+      .sort((a, b) => articleDates[b].valueOf() - articleDates[a].valueOf())
       .slice(0, 5);
 
     return orderedKeys
