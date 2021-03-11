@@ -82,9 +82,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         <Block columns={6} hasTop={false}>
           <Wrapper columns={3}>
             <ArticleCell
-              title="Over 30,000 votes cast in Student Elections"
-              subtitle="Two days of voting remain"
-              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting closes at <b>5pm on 11th March</b>, and we'll be bringing you the latest all the way."
+              title="Polls close at 5pm"
+              subtitle="Have your say in the Student Elections 2021"
+              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Voting closes at <b>5pm today</b>."
               isLive
               link="/live/student-elections-2021"
               clipText={false}
