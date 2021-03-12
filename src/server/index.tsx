@@ -26,6 +26,13 @@ server.use((_req, res, next) => {
   next();
 });
 
+// Clients should check more frequently than the CDN
+// Happy medium for clients getting updates quickly once CDN updated
+const cacheHeader = (maxAge = 120) =>
+  `public, max-age ${Math.floor(
+    maxAge / 2
+  )}, s-maxage ${maxAge}, stale-while-revalidate 1800, stale-if-error 432000`;
+
 const electionCellCache = new Cache(2 * 60, getCellLiveUpdates, [
   `student-elections-2021`,
 ]);
@@ -104,7 +111,10 @@ server.get("/", compression(), async (req, res) => {
       articles: sections[i],
     })),
   });
-  res.type("html").send(doctype + html);
+  res
+    .type("html")
+    .set("Cache-Control", cacheHeader(4 * 60))
+    .send(doctype + html);
 });
 
 const liveCache = new Cache(2 * 60, getLiveEvent, ["student-elections-2021"]);
@@ -120,7 +130,10 @@ server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
     initialEvent: event,
     firstUpdatedAt: new Date().toISOString(),
   });
-  res.type("html").send(doctype + html);
+  res
+    .type("html")
+    .set("Cache-Control", cacheHeader())
+    .send(doctype + html);
 });
 
 const staticDir = join(__dirname, "../static");
