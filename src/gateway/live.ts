@@ -96,7 +96,7 @@ export const fullQuery = `query getLive($liveSlug: String) {
     live_events(filter: {slug: {_eq: $liveSlug}}, limit: 1) {
       title
       subtitle
-      updates(filter:{status: {_eq: "published"}}, sort:["-published_at"], limit: 20) {
+      updates(filter:{status: {_eq: "published"}}, sort:["-published_at"], limit: 50) {
         id
         content
         published_at
