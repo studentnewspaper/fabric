@@ -5,11 +5,11 @@ import ClientGate from "./ClientGate";
 import Advert from "./Advert";
 
 const EMERGENCY_AD_PROPS = {
-  s3MediaId: "KBHuRxiR_98oBINiPNuw8",
+  s3MediaId: "R038-BegsSxRkB1YaDMST",
   alt: "",
   paidForBy: "EUSA",
   link:
-    "https://www.eusa.ed.ac.uk/elections?utm_campaign=Results+Night&utm_source=The+Student&utm_medium=Advert",
+    "https://www.eusa.ed.ac.uk/elections?utm_campaign=Results&utm_source=The+Student&utm_medium=Advert",
 };
 
 export interface LiveLayoutProps {
