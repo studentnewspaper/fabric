@@ -92,10 +92,10 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           </Wrapper>
           <Wrapper columns={1}>
             <ArticleCell
-              title="Read the manifestos"
-              text="You can find all the candidates standing for election on the EUSA site. See what they've pledged in their manifestos."
+              title="Join the call"
+              text="Click here to open the Facebook event, which has the link to join Results Night on Teams."
               type={ArticleCellType.Compact}
-              link="https://www.eusa.ed.ac.uk/yourvoice/elections/march/vote/"
+              link="https://fb.me/e/e3MRp8RUa"
               newTab
               clipText={false}
             />
