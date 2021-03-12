@@ -144,7 +144,6 @@ const LivePage: FunctionComponent<LivePageProps> = ({
             <UpdatesCell
               updates={event.updates
                 .filter((update) => update.majorText != null)
-                .slice(0, 10)
                 .map((update) => ({
                   id: update.id,
                   text: update.majorText ?? "Update",
