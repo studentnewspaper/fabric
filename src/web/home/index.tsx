@@ -82,9 +82,9 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         <Block columns={6} hasTop={false}>
           <Wrapper columns={3}>
             <ArticleCell
-              title="Results Night live coverage"
+              title="Ellen MacRae elected for 2nd term"
               subtitle="Live news and analysis from our elections team"
-              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university. Results Night begins at <b>6pm today</b>."
+              text="The elections provide an opportunity for students at the University of Edinburgh to pick the next generation of elected officials who will represent their views and concerns to the university."
               isLive
               link="/live/student-elections-2021"
               clipText={false}
@@ -92,10 +92,10 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           </Wrapper>
           <Wrapper columns={1}>
             <ArticleCell
-              title="Join the call"
-              text="Click here to open the Facebook event, which has the link to join Results Night on Teams."
+              title="Full results soon"
+              text="EUSA will shortly reveal the full vote breakdown on their site."
               type={ArticleCellType.Compact}
-              link="https://fb.me/e/e3MRp8RUa"
+              // link="https://fb.me/e/e3MRp8RUa"
               newTab
               clipText={false}
             />
