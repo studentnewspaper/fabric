@@ -62,6 +62,7 @@ const clientConfig = (base) => ({
   entry: {
     home: "./src/web/home/client.tsx",
     live: "./src/web/live/client.tsx",
+    search: "./src/web/search/client.tsx",
   },
   devtool: mode == "development" ? "source-map" : false,
   output: {

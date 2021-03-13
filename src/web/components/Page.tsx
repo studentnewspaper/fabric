@@ -31,6 +31,7 @@ export interface PageProps {
   preconnectDomains?: string[];
   prefetchDocs?: string[];
   prefetchScripts?: string[];
+  otherHead?: any;
 }
 
 const Page: FunctionComponent<PageProps> = ({
@@ -40,6 +41,7 @@ const Page: FunctionComponent<PageProps> = ({
   preconnectDomains = [],
   prefetchDocs = [],
   prefetchScripts = [],
+  otherHead,
 }) => {
   return (
     <html lang="en">
@@ -98,6 +100,7 @@ const Page: FunctionComponent<PageProps> = ({
           </>
         )}
         <link rel="manifest" href="/manifest.json" />
+        {otherHead}
       </head>
       <body>
         <div id="root">{children}</div>
@@ -123,9 +126,10 @@ const Page: FunctionComponent<PageProps> = ({
             __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,
           }}
         ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+        {process.env.NODE_ENV == "production" && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', function() {
             navigator.serviceWorker.register('/sw.js').then(() => {
@@ -134,8 +138,9 @@ const Page: FunctionComponent<PageProps> = ({
           });
         }        
         `,
-          }}
-        ></script>
+            }}
+          ></script>
+        )}
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import compression from "compression";
 import { getCellLiveUpdates, getLiveEvent } from "../gateway/live";
 import renderHome from "../web/home/server";
 import renderLive from "../web/live/server";
+import renderSearch from "../web/search/server";
 import {
   createImageUrl,
   getFeaturedArticles,
@@ -133,6 +134,14 @@ server.get<{ slug: string }>("/live/:slug", compression(), async (req, res) => {
   res
     .type("html")
     .set("Cache-Control", cacheHeader())
+    .send(doctype + html);
+});
+
+server.get("/search", compression(), async (req, res) => {
+  const html = renderSearch({});
+  res
+    .type("html")
+    .set("Cache-Control", cacheHeader(60 * 60 * 24 * 7 * 8))
     .send(doctype + html);
 });
 
