@@ -4,7 +4,7 @@ import Page from "../components/Page";
 
 function serverRender(props: LivePageProps): string {
   return ssr(
-    <Page title="Live" entrypoint="live.js">
+    <Page title={props.initialEvent.title} entrypoint="live.js">
       <LivePage {...props} />
     </Page>
   );
