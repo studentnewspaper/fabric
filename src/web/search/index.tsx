@@ -7,6 +7,7 @@ import {
   Highlight,
   Stats,
   InfiniteHits,
+  Snippet,
 } from "react-instantsearch-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -34,22 +35,12 @@ const searchClient = instantMeiliSearch(
 );
 
 const HitComponent: FunctionComponent<{ hit: any }> = ({ hit }) => {
-  const url = useMemo(() => {
-    const [source, ...slug] = hit.id.split("-");
-
-    if (source == "wp") {
-      return `/article/${slug.join("-")}`;
-    } else if (source == "live") {
-      return `/live/${slug.join("-")}`;
-    }
-  }, [hit.id]);
-
-  const type = useMemo(() => {
-    if (url == null) return null;
-    if (url.startsWith("/live")) return "Live update";
-    if (url.startsWith("/article")) return "Article";
+  const typeText = useMemo(() => {
+    if (hit.type == null) return null;
+    if (hit.type == "wp-paragraph") return "Article";
+    if (hit.type == "live-update") return "Live update";
     return null;
-  }, [url]);
+  }, [hit.type]);
 
   const dateText = useMemo(() => {
     return tinyRelative(new Date(hit.date));
@@ -59,18 +50,26 @@ const HitComponent: FunctionComponent<{ hit: any }> = ({ hit }) => {
     <div
       css={css`
         position: relative;
+        line-height: ${lineHeights.base};
       `}
     >
-      {url != null && <LinkArea href={url} />}
+      {hit.url != null && <LinkArea href={hit.url} />}
       <p
         css={css`
           font-family: ${fonts.serif};
           font-weight: ${fontWeights.bold};
-          line-height: ${lineHeights.base};
           font-size: 1.1rem;
         `}
       >
         <Highlight attribute="title" hit={hit} tagName="mark" />
+      </p>
+      <p
+        css={css`
+          font-family: ${fonts.serif};
+          margin-top: ${space[1]}px;
+        `}
+      >
+        <Highlight attribute="content" hit={hit} tagName="mark" />
       </p>
       <p
         css={css`
@@ -79,7 +78,7 @@ const HitComponent: FunctionComponent<{ hit: any }> = ({ hit }) => {
           font-size: ${fontSizes.small}rem;
         `}
       >
-        {type != null && type} &middot; {dateText} ago
+        {typeText != null && typeText} &middot; {dateText} ago
       </p>
     </div>
   );
