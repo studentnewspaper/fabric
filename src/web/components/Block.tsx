@@ -36,14 +36,11 @@ const gridStyles = (columns: number, rows: number) => css`
   grid-template-rows: repeat(${rows - 1}, minmax(0, auto)) minmax(0, 1fr);
   column-gap: ${space[5]}px;
   row-gap: ${space[6]}px;
+  padding-top: ${space[6]}px;
 
   @media (max-width: 800px) {
     grid-template-columns: repeat(${Math.min(columns, 2)}, minmax(0, 1fr));
   }
-`;
-
-const gridTopStyles = css`
-  padding-top: ${space[6]}px;
 `;
 
 const titleStyles = css`
@@ -93,9 +90,7 @@ const Block: FunctionComponent<BlockProps> = ({
         ) : (
           <div css={titleStyles}>{title}</div>
         ))}
-      <div css={[gridStyles(columns, rows), hasTop && gridTopStyles]}>
-        {children}
-      </div>
+      <div css={gridStyles(columns, rows)}>{children}</div>
     </div>
   );
 };
