@@ -3,8 +3,9 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint"],
   extends: [
-    "preact",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "preact",
+    "prettier",
   ],
 };
