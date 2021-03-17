@@ -5,7 +5,6 @@
 
 # Customize each tool. If analyses fail, try adjusting each option referencing the following example.
 linter:
-
   # ESLint. See https://help.sider.review/tools/javascript/eslint
   eslint:
     target:

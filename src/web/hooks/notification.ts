@@ -1,4 +1,4 @@
-import { useEffect,  useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { fetch } from "cross-fetch";
 
 export enum NotificationState {
@@ -22,7 +22,13 @@ async function isSupported() {
 
 // TODO: Make sure only one request can happen at a time
 
-export function useNotifications(channel: string): [state: NotificationState, enable: () => Promise<void>, disable: () => Promise<void>] {
+export function useNotifications(
+  channel: string
+): [
+  state: NotificationState,
+  enable: () => Promise<void>,
+  disable: () => Promise<void>
+] {
   const [state, setState] = useState(NotificationState.Loading);
   // const serviceWorkerRef = useRef<ServiceWorkerRegistration | null>(null);
   // const subscriptionRef = useRef<PushSubscription | null>(null);
@@ -64,10 +70,10 @@ export function useNotifications(channel: string): [state: NotificationState, en
       return;
     }
 
-    const localStorageEndpoint = localStorage.getItem(localStorageKey)
+    const localStorageEndpoint = localStorage.getItem(localStorageKey);
     if (localStorageEndpoint != null) {
       // Make sure this pre-existing subscription refers to this service workers subscription
-      if(localStorageEndpoint == subscription.endpoint) {
+      if (localStorageEndpoint == subscription.endpoint) {
         setState(NotificationState.Subscribed);
         return;
       }
@@ -88,13 +94,13 @@ export function useNotifications(channel: string): [state: NotificationState, en
   useEffect(() => {
     // For SSR, state should always be "loading"
     if (typeof window == "undefined") return;
-    
+
     determineState();
-    document.body.addEventListener('sw-init', determineState);
+    document.body.addEventListener("sw-init", determineState);
 
     return () => {
-      document.body.removeEventListener('sw-init', determineState);
-    }
+      document.body.removeEventListener("sw-init", determineState);
+    };
   }, []);
 
   async function enable() {
@@ -131,27 +137,35 @@ export function useNotifications(channel: string): [state: NotificationState, en
       }
     }
 
-    const response = await fetch(`${process.env.NOTIFICATION_ORIGIN}/subscribe`, {
-      method: "POST",
-      body: JSON.stringify({ channel, device: {endpoint: subscription.endpoint, keys: subscription.toJSON().keys} }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if(response.status != 200) {
+    const response = await fetch(
+      `${process.env.NOTIFICATION_ORIGIN}/subscribe`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          channel,
+          device: {
+            endpoint: subscription.endpoint,
+            keys: subscription.toJSON().keys,
+          },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status != 200) {
       console.error(`Could not register subscription`);
-      alert("We're having trouble registering this subscription. Oops! Please try again in a bit or email digital@studentnewspaper.org");
+      alert(
+        "We're having trouble registering this subscription. Oops! Please try again in a bit or email digital@studentnewspaper.org"
+      );
       setState(NotificationState.Active);
       return;
     }
-    localStorage.setItem(
-      localStorageKey,
-      subscription.endpoint
-    );
+    localStorage.setItem(localStorageKey, subscription.endpoint);
     setState(NotificationState.Subscribed);
-    
-    if('plausible' in window) {
-      window.plausible('Push enabled');
+
+    if ("plausible" in window) {
+      window.plausible("Push enabled");
     }
   }
 
@@ -167,7 +181,7 @@ export function useNotifications(channel: string): [state: NotificationState, en
     const subscription = await sw.pushManager.getSubscription();
     if (subscription == null) throw new Error("Where did subscription go?");
 
-    await removeEndpoint(subscription.endpoint)
+    await removeEndpoint(subscription.endpoint);
     localStorage.removeItem(localStorageKey);
 
     await determineState();
