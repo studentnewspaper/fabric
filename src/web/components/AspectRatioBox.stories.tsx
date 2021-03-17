@@ -36,7 +36,7 @@ export const AspectRatioBox: any = (args: any) => (
           left: 0;
           right: 0;
         `}
-      ></div>
+       />
     </AspectRatioBoxComponent>
   </div>
 );

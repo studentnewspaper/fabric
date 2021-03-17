@@ -3,7 +3,7 @@ import { bg } from "../design/palette";
 import { fonts, fontWeights, space } from "../design/theme";
 import { FunctionComponent } from "preact";
 
-export interface ContentWarningProps extends PropsOf<"div"> {}
+export type ContentWarningProps = PropsOf<"div">
 
 const containerStyles = css`
   padding: 16px 0;
@@ -56,7 +56,7 @@ const ContentWarning: FunctionComponent<ContentWarningProps> = ({
   return (
     <div css={containerStyles} {...props}>
       <div css={iconContainerStyles}>
-        <div css={rotatedBoxStyles}></div>
+        <div css={rotatedBoxStyles} />
         <div css={iconTextStyles}>!</div>
       </div>
       <div>

@@ -3,7 +3,7 @@ import { fontWeights, lineHeights, space } from "../design/theme";
 import { generateStyles, subtitleFont } from "../design/typography";
 import { FunctionComponent } from "preact";
 
-export interface RichContentProps extends PropsOf<"div"> {}
+export type RichContentProps = PropsOf<"div">
 
 const styles = css`
   line-height: ${lineHeights.relaxed};

@@ -177,7 +177,7 @@ const ArticleCell: FunctionComponent<ArticleCellProps> = ({
         (clipText ? (
           <div css={[textStyles, gradientContainerStyles]}>
             <div dangerouslySetInnerHTML={{ __html: text }} />
-            <div css={textOverlay}></div>
+            <div css={textOverlay} />
           </div>
         ) : (
           <div css={textStyles} dangerouslySetInnerHTML={{ __html: text }} />

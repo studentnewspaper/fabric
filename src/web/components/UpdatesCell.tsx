@@ -100,11 +100,11 @@ const UpdatesCell: FunctionComponent<UpdatesCellProps> = ({
                 timeStyles,
                 type == UpdatesCellType.Stacked && stackedTimeStyles,
               ]}
-              key={update.id + "-t"}
+              key={`${update.id  }-t`}
             >
               {tinyRelative(update.timestamp)}
             </div>,
-            <div key={update.id + "-l"}>{text}</div>,
+            <div key={`${update.id  }-l`}>{text}</div>,
           ];
         })}
       </div>

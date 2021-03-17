@@ -65,7 +65,7 @@ const Page: FunctionComponent<PageProps> = ({
           dangerouslySetInnerHTML={{
             __html: `*{box-sizing:border-box}body{color:${text.primary};font-family:${fonts.serif};line-height:${lineHeights.base}}html,body,#root{padding:0;margin:0;position:absolute;top:0;bottom:0;left:0;right:0;}`,
           }}
-        ></style>
+         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {prefetchDocs.map((href) => (
           <link
@@ -91,12 +91,12 @@ const Page: FunctionComponent<PageProps> = ({
               data-domain="studentnewspaper.org"
               src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
               crossOrigin="anonymous"
-            ></script>
+             />
             <script
               dangerouslySetInnerHTML={{
                 __html: `<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>`,
               }}
-            ></script>
+             />
           </>
         )}
         <link rel="manifest" href="/manifest.json" />
@@ -117,15 +117,15 @@ const Page: FunctionComponent<PageProps> = ({
           )}
         {entrypoint != null && (
           <>
-            <script src={manifest()["commons.js"]} defer></script>
-            <script src={manifest()[entrypoint]} defer></script>
+            <script src={manifest()["commons.js"]} defer />
+            <script src={manifest()[entrypoint]} defer />
           </>
         )}
         <script
           dangerouslySetInnerHTML={{
             __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,
           }}
-        ></script>
+         />
         {process.env.NODE_ENV == "production" && (
           <script
             dangerouslySetInnerHTML={{
@@ -139,7 +139,7 @@ const Page: FunctionComponent<PageProps> = ({
         }        
         `,
             }}
-          ></script>
+           />
         )}
       </body>
     </html>

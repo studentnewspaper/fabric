@@ -84,7 +84,7 @@ const LiveBadge: FunctionComponent<LiveBadgeProps> = ({
                 : text.live};
             `,
           ]}
-        ></div>
+         />
         <div css={textStyles}>LIVE</div>
       </div>
     </div>

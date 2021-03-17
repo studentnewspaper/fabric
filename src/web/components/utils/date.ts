@@ -47,7 +47,7 @@ export function tinyRelative(
 
 export function leftPad(n: number): string {
   const s = n.toString();
-  if (s.length == 1) return "0" + s;
+  if (s.length == 1) return `0${  s}`;
   return s;
 }
 
