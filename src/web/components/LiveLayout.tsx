@@ -52,7 +52,7 @@ const LiveLayout: FunctionComponent<LiveLayoutProps> = ({ updates }) => {
   return (
     <div css={containerStyles}>
       {$updates.slice(0, 4)}
-      <div></div>
+      <div />
       <Advert {...EMERGENCY_AD_PROPS} hideBottomBorder />
       <ClientGate>{$updates.slice(3)}</ClientGate>
     </div>

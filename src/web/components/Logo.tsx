@@ -2,7 +2,7 @@ import { css, PropsOf } from "@emotion/react";
 import { text } from "../design/palette";
 import { FunctionComponent } from "preact";
 
-export interface LogoProps extends PropsOf<"svg"> {}
+export type LogoProps = PropsOf<"svg">
 
 const Logo: FunctionComponent<LogoProps> = ({ ...props }) => {
   return (

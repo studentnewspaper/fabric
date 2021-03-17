@@ -1,4 +1,4 @@
-declare var self: ServiceWorkerGlobalScope;
+declare let self: ServiceWorkerGlobalScope;
 
 import { setCacheNameDetails } from "workbox-core";
 import { NavigationRoute, registerRoute } from "workbox-routing";

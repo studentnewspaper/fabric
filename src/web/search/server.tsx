@@ -10,7 +10,7 @@ function serverRender(props: SearchPageProps): string {
       integrity="sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc="
       ///@ts-expect-error
       crossorigin="anonymous"
-    ></link>
+     />
   );
 
   return ssr(

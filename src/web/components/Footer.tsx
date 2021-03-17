@@ -10,7 +10,7 @@ import {
 } from "react-icons/ri";
 import Container from "./Container";
 
-export interface FooterProps extends PropsOf<"div"> {}
+export type FooterProps = PropsOf<"div">
 
 const footerTitleStyles = css`
   font-weight: ${fontWeights.bold};

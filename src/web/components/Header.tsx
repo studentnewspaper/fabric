@@ -75,7 +75,7 @@ const Header: FunctionComponent<HeaderProps> = ({}) => {
       </Container>
       <Container css={dividerStyles(false)}>
         <div css={mastheadStyles}>
-          <div></div>
+          <div />
           <div
             css={css`
               position: relative;

@@ -63,7 +63,7 @@ const Advert: FunctionComponent<AdvertProps> = ({
       >
         Advert paid for by <b>{paidForBy}</b>
       </div>
-      {!hideBottomBorder && <div css={lineStyle}></div>}
+      {!hideBottomBorder && <div css={lineStyle} />}
     </div>
   );
 };
