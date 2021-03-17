@@ -8,9 +8,9 @@ function serverRender(props: SearchPageProps): string {
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/satellite-min.css"
       integrity="sha256-TehzF/2QvNKhGQrrNpoOb2Ck4iGZ1J/DI4pkd2oUsBc="
-      ///@ts-expect-error
+      ///@ts-expect-error prop not typed yet
       crossorigin="anonymous"
-     />
+    />
   );
 
   return ssr(

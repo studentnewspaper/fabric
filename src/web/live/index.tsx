@@ -61,7 +61,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
         return (
           <ToggleButton
             isToggled={false}
-            onToggle={() => enableNotifications()}
+            onChange={() => enableNotifications()}
           >
             Subscribe
           </ToggleButton>
@@ -72,7 +72,7 @@ const LivePage: FunctionComponent<LivePageProps> = ({
         return (
           <ToggleButton
             isToggled={true}
-            onToggle={() => disableNotifications()}
+            onChange={() => disableNotifications()}
           >
             Unsubscribe
           </ToggleButton>

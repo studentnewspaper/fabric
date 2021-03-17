@@ -13,7 +13,7 @@ import {
 
 export interface ToggleButtonProps {
   isToggled?: boolean;
-  onToggle?: (toggled: boolean) => void;
+  onChange?: (toggled: boolean) => void;
   isDisabled?: boolean;
 }
 
@@ -53,7 +53,7 @@ const offStyles = css`
 
 const ToggleButton: FunctionComponent<ToggleButtonProps> = ({
   isToggled = false,
-  onToggle: onChange = () => {},
+  onChange,
   children,
   isDisabled: _isDisabled = false,
   ...props
@@ -63,7 +63,7 @@ const ToggleButton: FunctionComponent<ToggleButtonProps> = ({
   return (
     <button
       css={[buttonStyles, isToggled ? onStyles : offStyles]}
-      onClick={() => onChange(!isToggled)}
+      onClick={() => onChange && onChange(!isToggled)}
       disabled={isDisabled}
       {...props}
     >
