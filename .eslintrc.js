@@ -8,4 +8,14 @@ module.exports = {
     "preact",
     "prettier",
   ],
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "no-undef": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-empty-interface": "warn",
+      },
+    },
+  ],
 };
