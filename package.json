@@ -24,7 +24,7 @@
     "modern-normalize": "^1.0.0",
     "node-cache": "^5.1.2",
     "preact": "^10.5.12",
-    "preact-render-to-string": "^5.1.12",
+    "preact-render-to-string": "^5.1.16",
     "react-icons": "^4.2.0",
     "react-instantsearch-dom": "^6.10.3",
     "ts-loader": "^8.0.17",
