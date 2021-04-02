@@ -34,7 +34,7 @@
     "webpack-manifest-plugin": "^3.0.0",
     "webpack-node-externals": "^2.5.2",
     "workbox-cacheable-response": "^6.1.1",
-    "workbox-core": "^6.1.1",
+    "workbox-core": "^6.1.2",
     "workbox-expiration": "^6.1.1",
     "workbox-navigation-preload": "^6.1.1",
     "workbox-precaching": "^6.1.1",
