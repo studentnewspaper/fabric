@@ -35,7 +35,7 @@
     "webpack-node-externals": "^2.5.2",
     "workbox-cacheable-response": "^6.1.1",
     "workbox-core": "^6.1.1",
-    "workbox-expiration": "^6.1.1",
+    "workbox-expiration": "^6.1.5",
     "workbox-navigation-preload": "^6.1.1",
     "workbox-precaching": "^6.1.1",
     "workbox-routing": "^6.1.1",
