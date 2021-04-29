@@ -1,0 +1,53 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: date-fns
+    versions:
+    - 2.19.0
+    - 2.20.0
+    - 2.20.1
+    - 2.20.2
+    - 2.20.3
+    - 2.21.0
+  - dependency-name: concurrently
+    versions:
+    - 6.0.1
+  - dependency-name: "@typescript-eslint/parser"
+    versions:
+    - 4.20.0
+    - 4.21.0
+  - dependency-name: "@storybook/addon-actions"
+    versions:
+    - 6.2.1
+    - 6.2.2
+    - 6.2.3
+  - dependency-name: workbox-navigation-preload
+    versions:
+    - 6.1.2
+  - dependency-name: workbox-core
+    versions:
+    - 6.1.2
+  - dependency-name: workbox-strategies
+    versions:
+    - 6.1.2
+  - dependency-name: workbox-precaching
+    versions:
+    - 6.1.2
+  - dependency-name: cross-fetch
+    versions:
+    - 3.1.1
+    - 3.1.3
+  - dependency-name: workbox-expiration
+    versions:
+    - 6.1.2
+  - dependency-name: preact-render-to-string
+    versions:
+    - 5.1.16
+  - dependency-name: "@storybook/addon-links"
+    versions:
+    - 6.1.21
