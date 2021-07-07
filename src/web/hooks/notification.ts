@@ -84,11 +84,10 @@ export function useNotifications(
       // We still have _a_ subscription though, so it's active
       setState(NotificationState.Active);
       return;
-    } 
-      // We probably don't have a subscription to this exact thing
-      setState(NotificationState.Active);
-      return;
-    
+    }
+    // We probably don't have a subscription to this exact thing
+    setState(NotificationState.Active);
+    return;
   }
 
   useEffect(() => {
@@ -163,10 +162,6 @@ export function useNotifications(
     }
     localStorage.setItem(localStorageKey, subscription.endpoint);
     setState(NotificationState.Subscribed);
-
-    if ("plausible" in window) {
-      window.plausible("Push enabled");
-    }
   }
 
   async function disable() {

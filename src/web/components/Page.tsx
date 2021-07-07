@@ -65,7 +65,7 @@ const Page: FunctionComponent<PageProps> = ({
           dangerouslySetInnerHTML={{
             __html: `*{box-sizing:border-box}body{color:${text.primary};font-family:${fonts.serif};line-height:${lineHeights.base}}html,body,#root{padding:0;margin:0;position:absolute;top:0;bottom:0;left:0;right:0;}`,
           }}
-         />
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {prefetchDocs.map((href) => (
           <link
@@ -88,15 +88,9 @@ const Page: FunctionComponent<PageProps> = ({
             <script
               async
               defer
-              data-domain="studentnewspaper.org"
-              src="https://analytics.fabric.studentnewspaper.org/js/plausible.js"
-              crossOrigin="anonymous"
-             />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>`,
-              }}
-             />
+              data-website-id="fe2106b4-d95e-4c48-a038-1d1eba79f331"
+              src="https://analytics.fabric.studentnewspaper.org/umami.js"
+            />
           </>
         )}
         <link rel="manifest" href="/manifest.json" />
@@ -125,7 +119,7 @@ const Page: FunctionComponent<PageProps> = ({
           dangerouslySetInnerHTML={{
             __html: `console.log("Designed and developed by Nicholas Bush and Isabella Ronca, March 2021");`,
           }}
-         />
+        />
         {process.env.NODE_ENV == "production" && (
           <script
             dangerouslySetInnerHTML={{
@@ -139,7 +133,7 @@ const Page: FunctionComponent<PageProps> = ({
         }        
         `,
             }}
-           />
+          />
         )}
       </body>
     </html>
