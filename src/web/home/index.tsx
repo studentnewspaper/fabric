@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import { space } from "../design/theme";
 
 export interface HomePageProps {
+  fringeArticles: ArticleStub[] | null;
   featuredArticles: ArticleStub[] | null;
   sections: { title: string; articles: ArticleStub[] }[];
 }
@@ -33,6 +34,7 @@ const Wrapper: FunctionComponent<{ columns: number; rows?: number }> = ({
 
 const HomePage: FunctionComponent<HomePageProps> = ({
   featuredArticles,
+  fringeArticles,
   sections,
 }) => {
   return (
@@ -44,7 +46,25 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           margin: ${space[8]}px 0;
         `}
       >
-        <Block columns={4} title="Our picks" hasTop={false}>
+        <Block columns={3} title="Fringe 2021" hasTop={false}>
+          {fringeArticles == null && <p>Couldn't load fringe articles</p>}
+          {fringeArticles != null && (
+            <>
+              {fringeArticles.map((article, i) => {
+                return (
+                  <Wrapper key={article.slug} columns={1}>
+                    <ArticleCell
+                      {...article}
+                      text={undefined}
+                      type={ArticleCellType.Compact}
+                    />
+                  </Wrapper>
+                );
+              })}
+            </>
+          )}
+        </Block>
+        <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (
             <p>Couldn't load featured articles</p>
           )}

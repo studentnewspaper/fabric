@@ -40,6 +40,9 @@ const sectionCache = new Cache(
     if (key == "featured") {
       return getFeaturedArticles(3);
     }
+    if (key == "fringe") {
+      return getTagArticles(14248, 6);
+    }
     if (key in sectionDefinitions) {
       return getSectionArticles(
         sectionDefinitions[key as keyof typeof sectionDefinitions]
@@ -49,7 +52,8 @@ const sectionCache = new Cache(
   Object.keys(sectionDefinitions)
 );
 server.get("/", compression(), async (req, res) => {
-  const [featuredArticles, ...sections] = await Promise.all([
+  const [fringeArticles, featuredArticles, ...sections] = await Promise.all([
+    sectionCache.get("fringe"),
     sectionCache.get("featured"),
     ...Object.entries(sectionDefinitions).map(([title]) =>
       sectionCache.get(title)
@@ -57,6 +61,7 @@ server.get("/", compression(), async (req, res) => {
   ] as Promise<any>[]);
 
   const html = renderHome({
+    fringeArticles,
     featuredArticles,
     sections: Object.keys(sectionDefinitions).map((title, i) => ({
       title,
