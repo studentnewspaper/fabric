@@ -46,16 +46,18 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           margin: ${space[8]}px 0;
         `}
       >
-        <Block columns={3} title="Fringe 2021" hasTop={false}>
+        <Block columns={6} title="Fringe Reviews" hasTop={false}>
           {fringeArticles == null && <p>Couldn't load fringe articles</p>}
           {fringeArticles != null && (
             <>
               {fringeArticles.map((article, i) => {
+                const title = article.title.replace(" — Review", "");
                 return (
                   <Wrapper key={article.slug} columns={1}>
                     <ArticleCell
-                      {...article}
-                      text={undefined}
+                      imageUrl={article.imageUrl}
+                      imageAlt={article.imageAlt}
+                      title={title}
                       type={ArticleCellType.Compact}
                       link={`/article/${article.slug}`}
                     />

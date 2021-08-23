@@ -41,7 +41,7 @@ const sectionCache = new Cache(
       return getFeaturedArticles(3);
     }
     if (key == "fringe") {
-      return getTagArticles(14248, 6);
+      return getTagArticles(14248, 12);
     }
     if (key in sectionDefinitions) {
       return getSectionArticles(
