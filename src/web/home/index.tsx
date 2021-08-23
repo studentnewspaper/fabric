@@ -57,6 +57,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
                       {...article}
                       text={undefined}
                       type={ArticleCellType.Compact}
+                      link={`/article/${article.slug}`}
                     />
                   </Wrapper>
                 );
