@@ -70,8 +70,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
         <Block columns={2} title="Princes Street Evacuated">
           <Wrapper columns={2}>
             <ArticleCell
-              title="BREAKING: Bomb disposal unit attending at Princes Street"
-              text="Swathes of Princes Street evacuated are being evacuated. Follow along as our news team bring you the latest."
+              title="Suspicious object deemed safe at National Gallery"
               isLive
               link={`/live/princes-street-evacuated`}
               type={ArticleCellType.Default}
