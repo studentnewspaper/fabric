@@ -8,8 +8,7 @@ const EMERGENCY_AD_PROPS = {
   s3MediaId: "R038-BegsSxRkB1YaDMST",
   alt: "",
   paidForBy: "EUSA",
-  link:
-    "https://www.eusa.ed.ac.uk/elections?utm_campaign=Results&utm_source=The+Student&utm_medium=Advert",
+  link: "https://www.eusa.ed.ac.uk/elections?utm_campaign=Results&utm_source=The+Student&utm_medium=Advert",
 };
 
 export interface LiveLayoutProps {
@@ -53,7 +52,7 @@ const LiveLayout: FunctionComponent<LiveLayoutProps> = ({ updates }) => {
     <div css={containerStyles}>
       {$updates.slice(0, 4)}
       <div />
-      <Advert {...EMERGENCY_AD_PROPS} hideBottomBorder />
+      {/* <Advert {...EMERGENCY_AD_PROPS} hideBottomBorder /> */}
       <ClientGate>{$updates.slice(3)}</ClientGate>
     </div>
   );
