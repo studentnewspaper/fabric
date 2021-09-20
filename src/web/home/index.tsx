@@ -46,7 +46,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
           margin: ${space[8]}px 0;
         `}
       >
-        <Block columns={6} title="Fringe Reviews" hasTop={false}>
+        {/* <Block columns={6} title="Fringe Reviews" hasTop={false}>
           {fringeArticles == null && <p>Couldn't load fringe articles</p>}
           {fringeArticles != null && (
             <>
@@ -66,6 +66,18 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               })}
             </>
           )}
+        </Block> */}
+        <Block columns={2} title="Princes Street Evacuated">
+          <Wrapper columns={2}>
+            <ArticleCell
+              title="BREAKING: Bomb disposal unit attending at Princes Street"
+              text="Swathes of Princes Street evacuated are being evacuated. Follow along as our news team bring you the latest."
+              isLive
+              link={`/live/princes-street-evacuated`}
+              type={ArticleCellType.Default}
+              clipText={false}
+            />
+          </Wrapper>
         </Block>
         <Block columns={4} title="Our picks">
           {(featuredArticles == null || featuredArticles.length != 3) && (
