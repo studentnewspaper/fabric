@@ -67,7 +67,7 @@ const HomePage: FunctionComponent<HomePageProps> = ({
             </>
           )}
         </Block> */}
-        <Block columns={2} title="Princes Street Evacuated">
+        {/* <Block columns={2} title="Princes Street Evacuated">
           <Wrapper columns={2}>
             <ArticleCell
               title="Suspicious object deemed safe at National Gallery"
@@ -77,8 +77,8 @@ const HomePage: FunctionComponent<HomePageProps> = ({
               clipText={false}
             />
           </Wrapper>
-        </Block>
-        <Block columns={4} title="Our picks">
+        </Block> */}
+        <Block columns={4} title="Our picks" hasTop={false}>
           {(featuredArticles == null || featuredArticles.length != 3) && (
             <p>Couldn't load featured articles</p>
           )}
